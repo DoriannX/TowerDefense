@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f41e5d8214466c8a3aada92d92f8fc, type: 3}
+  m_Name: CharacterData
+  m_EditorClassIdentifier: 
+  OnMovePerformed: {fileID: 11400000, guid: 76b8b8dac3c822f4bad09e4d3925b822, type: 2}
+  OnMoveCanceled: {fileID: 11400000, guid: eb3d638c356e1b54da85c5e430df436e, type: 2}
+  OnJumpStarted: {fileID: 11400000, guid: 6677f14baeace8745a84df9a809ecfbe, type: 2}
+  OnJumpCanceled: {fileID: 11400000, guid: 265c4bac9d7b639488ce06c09bc0acd7, type: 2}
+  OnSprintStarted: {fileID: 11400000, guid: 111daae818524e0488fa876a7b4039eb, type: 2}
+  OnSprintCanceled: {fileID: 11400000, guid: a6dc015c24acb9542b30631395d137a7, type: 2}
+  OnLookPerformed: {fileID: 11400000, guid: 8e5f2718afc1bb34090998d3dec349cb, type: 2}
+  OnLookCanceled: {fileID: 11400000, guid: 9e697f6f1af099648b6ec55d8abc00be, type: 2}
+  OnPossess: {fileID: 11400000, guid: 91da0e10a7ebb344a9d4af1784d9433f, type: 2}
