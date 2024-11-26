@@ -1,54 +1,58 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameEvent", menuName = "ScriptableObjects/GameEvents/NoArg", order = 0)]
-public class GameEvent : ScriptableObject, IGameEvent
+namespace Runtime.GameEvents
 {
-    public Action<int[]> Action { get; private set; }
+    [CreateAssetMenu(fileName = "GameEvent", menuName = "ScriptableObjects/GameEvents/GameEvent", order = 0)]
+    public class GameEvent : ScriptableObject, IGameEvent
+    {
+        public Action Action { get; private set; }
         
-    public void Invoke(params int[] id)
-    {
-        Action?.Invoke(id);
-    }
+        public void Invoke()
+        {
+            Action?.Invoke();
+        }
 
-    public void AddListener(Action<int[]> action)
-    {
-        Action += action;
-    }
+        public void AddListener(Action action)
+        {
+            Action += action;
+        }
         
-    public void RemoveListener(Action<int[]> action)
-    {
-        Action -= action;
-    }
+        public void RemoveListener(Action action)
+        {
+            Action -= action;
+        }
 
 
-    public void ClearListeners()
-    {
-        Action = null;
+        public void ClearListeners()
+        {
+            Action = null;
+        }
     }
-}
     
-public class GameEvent<T> : ScriptableObject, IGameEvent
-{
-    public Action<T, int[]> Action { get; private set; }
-
-    public void Invoke(T arg, params int[] id)
+    public class GameEvent<T> : ScriptableObject, IGameEvent
     {
-        Action?.Invoke(arg, id);
-    }
-
-    public void AddListener(Action<T, int[]> action)
-    {
-        Action += action;
-    }
+        public Action<T> Action { get; private set; }
         
-    public void RemoveListener(Action<T, int[]> action)
-    {
-        Action -= action;
-    }
+        public void Invoke(T obj)
+        {
+            Action?.Invoke(obj);
+        }
+
+        public void AddListener(Action<T> action)
+        {
+            Action += action;
+        }
         
-    public void ClearListeners()
-    {
-        Action = null;
+        public void RemoveListener(Action<T> action)
+        {
+            Action -= action;
+        }
+
+
+        public void ClearListeners()
+        {
+            Action = null;
+        }
     }
 }

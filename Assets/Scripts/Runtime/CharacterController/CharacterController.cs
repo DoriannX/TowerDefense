@@ -1,4 +1,5 @@
 using System.Linq;
+using Runtime.CharacterController;
 using SerializedProperties;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ public class CharacterController : MonoBehaviour
     private void Start()
     {
         InitEvents();
+        _characterData.OnCreated?.Invoke(_id.GetId());
     }
 
     private void Update()

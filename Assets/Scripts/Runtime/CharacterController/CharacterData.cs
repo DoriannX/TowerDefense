@@ -5,19 +5,24 @@ public class CharacterData : ScriptableObject
 {
     //Actions
     //Move
-    public Vector3GameEvent OnMovePerformed;
-    public Vector3GameEvent OnMoveCanceled;
+    public Vector3GameEventId OnMovePerformed;
+    public Vector3GameEventId OnMoveCanceled;
     //Jump
-    public GameEvent OnJumpStarted;
-    public GameEvent OnJumpCanceled;
+    public GameEventId OnJumpStarted;
+    public GameEventId OnJumpCanceled;
     //Sprint
-    public GameEvent OnSprintStarted;
-    public GameEvent OnSprintCanceled;
+    public GameEventId OnSprintStarted;
+    public GameEventId OnSprintCanceled;
     //Look
-    public Vector2GameEvent OnLookPerformed;
-    public Vector2GameEvent OnLookCanceled;
+    public Vector2GameEventId OnLookPerformed;
+    public Vector2GameEventId OnLookCanceled;
+    //Shoot
+    public GameEventId OnShootStarted;
+    public GameEventId OnShootCanceled;
     //Possess
-    public GameEvent OnPossess;
+    public GameEventId OnPossess;
+    //Creation
+    public GameEventId OnCreated;
 
     public void RemoveAllListeners()
     {
@@ -29,5 +34,9 @@ public class CharacterData : ScriptableObject
         OnSprintCanceled.ClearListeners();
         OnLookPerformed.ClearListeners();
         OnLookCanceled.ClearListeners();
+        OnShootStarted.ClearListeners();
+        OnShootCanceled.ClearListeners();
+        OnPossess.ClearListeners();
+        OnCreated.ClearListeners();
     }
 }

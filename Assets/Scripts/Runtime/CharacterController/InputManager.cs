@@ -24,6 +24,9 @@ public class InputManager : MonoBehaviour
     //Look
     private Action<Vector2, int[]> _onLookPerformed;
     private Action<Vector2, int[]> _onLookCanceled;
+    //Shoot
+    private Action<int[]> _onShootStarted;
+    private Action<int[]> _onShootCanceled;
     //Possess
     private Action<int[]> _onPossess;
         
@@ -40,6 +43,8 @@ public class InputManager : MonoBehaviour
         _onSprintCanceled += characterData.OnSprintCanceled.Invoke;
         _onLookPerformed += characterData.OnLookPerformed.Invoke;
         _onLookCanceled += characterData.OnLookCanceled.Invoke;
+        _onShootStarted += characterData.OnShootStarted.Invoke;
+        _onShootCanceled += characterData.OnShootCanceled.Invoke;
         _onPossess += characterData.OnPossess.Invoke;
     }
 
@@ -102,6 +107,19 @@ public class InputManager : MonoBehaviour
         if (ctx.canceled)
         {
             _onLookCanceled?.Invoke(LookDeltaValue, _ids);
+        }
+    }
+
+    public void OnShoot(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            _onShootStarted?.Invoke(_ids);
+        }
+
+        if (ctx.canceled)
+        {
+            _onShootCanceled?.Invoke(_ids);
         }
     }
         

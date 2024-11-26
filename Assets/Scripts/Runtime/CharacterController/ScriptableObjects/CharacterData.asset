@@ -20,4 +20,7 @@ MonoBehaviour:
   OnSprintCanceled: {fileID: 11400000, guid: a6dc015c24acb9542b30631395d137a7, type: 2}
   OnLookPerformed: {fileID: 11400000, guid: 8e5f2718afc1bb34090998d3dec349cb, type: 2}
   OnLookCanceled: {fileID: 11400000, guid: 9e697f6f1af099648b6ec55d8abc00be, type: 2}
+  OnShootStarted: {fileID: 11400000, guid: 0bacfa6bd5ad0db468b143049081e3b7, type: 2}
+  OnShootCanceled: {fileID: 11400000, guid: a9a53ea819c4e40468c78688146dee13, type: 2}
   OnPossess: {fileID: 11400000, guid: 91da0e10a7ebb344a9d4af1784d9433f, type: 2}
+  OnCreated: {fileID: 11400000, guid: 8fdead35766f0df46a1b717d20d15af1, type: 2}

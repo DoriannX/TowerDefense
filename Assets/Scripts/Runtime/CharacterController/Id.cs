@@ -1,23 +1,66 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class Id : MonoBehaviour
+namespace Runtime.CharacterController
 {
-    private static HashSet<int> _ids = new();
-    private int _id;
-        
-    public void SetId(int id) => _id = id;
-        
-    public int GetId() => _id;
+#if UNITY_EDITOR
 
-    private void Awake()
+    [CustomEditor(typeof(Id))]
+    public class IdCustomEditor : Editor
     {
-        _id = _ids.Count;
-        _ids.Add(_id);
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_isIdSerialized"));
+            SerializedProperty idProperty = serializedObject.FindProperty("_id");
+
+            if (serializedObject.FindProperty("_isIdSerialized").boolValue)
+            {
+                EditorGUILayout.PropertyField(idProperty);
+            }
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 
-    private void OnDestroy()
+#endif
+
+    public class Id : MonoBehaviour
     {
-        _ids.Remove(_id);
+        [SerializeField] private bool _isIdSerialized;
+        private bool _shouldSetId = true;
+
+        private static HashSet<int> _ids = new();
+        public static int Count => _ids.Count;
+        [SerializeField] private int _id;
+
+        public void SetId(int id)
+        {
+            _id = id;
+            _shouldSetId = false;
+        }
+        
+        public int GetId() => _id;
+
+        private void Awake()
+        {
+            if (!_shouldSetId)
+            {
+                return;
+            }
+            
+            if (!_isIdSerialized)
+            {
+                _id = _ids.Count;
+            }
+            _ids.Add(_id);
+        }
+
+        private void OnDestroy()
+        {
+            _ids.Remove(_id);
+        }
     }
 }
