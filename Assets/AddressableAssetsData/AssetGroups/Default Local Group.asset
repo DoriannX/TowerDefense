@@ -16,91 +16,91 @@ MonoBehaviour:
   m_GUID: 27d4f534b8c6d72438ff8373b8998c93
   m_SerializeEntries:
   - m_GUID: 0bacfa6bd5ad0db468b143049081e3b7
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Shoot/OnShootStarted.asset
+    m_Address: OnShootStarted
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 111daae818524e0488fa876a7b4039eb
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Sprint/OnSprintStarted.asset
+    m_Address: OnSprintStarted
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 265c4bac9d7b639488ce06c09bc0acd7
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Jump/OnJumpCanceled.asset
+    m_Address: OnJumpCanceled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6677f14baeace8745a84df9a809ecfbe
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Jump/OnJumpStarted.asset
+    m_Address: OnJumpStarted
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76b8b8dac3c822f4bad09e4d3925b822
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Movements/OnMovePerformed.asset
+    m_Address: OnMovePerformed
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e5f2718afc1bb34090998d3dec349cb
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Look/OnLookPerformed.asset
+    m_Address: OnLookPerformed
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8fdead35766f0df46a1b717d20d15af1
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/OnCreated/OnCreated.asset
+    m_Address: OnCreated
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 91da0e10a7ebb344a9d4af1784d9433f
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Possess/OnPossess.asset
+    m_Address: OnPossess
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9342eca672c38484d976041d2bb707a1
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/OnDead/OnDead.asset
+    m_Address: OnDead
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e697f6f1af099648b6ec55d8abc00be
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Look/OnLookCanceled.asset
+    m_Address: OnLookCanceled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a6dc015c24acb9542b30631395d137a7
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Sprint/OnSprintCanceled.asset
+    m_Address: OnSprintCanceled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9a53ea819c4e40468c78688146dee13
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Shoot/OnShootCanceled.asset
+    m_Address: OnShootCanceled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cd1341882157abb4db0a6dec270e34a9
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/OnHit/OnHit.asset
+    m_Address: OnHit
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0c223a28698fde46894c69ca4df6538
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/OnRevive/OnRevive.asset
+    m_Address: OnRevive
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb3d638c356e1b54da85c5e430df436e
-    m_Address: Assets/Scripts/Runtime/CharacterController/ScriptableObjects/Events/Movements/OnMoveCanceled.asset
+    m_Address: OnMoveCanceled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents

@@ -63,6 +63,16 @@ namespace Runtime.Enemy
             });
         }
 
+        private void Update()
+        {
+            
+            global::GameEvents.OnPossess?.Invoke(156);
+            global::GameEvents.OnPossess?.AddListener(ints =>
+            {
+                Debug.Log(ints[0]);
+            });
+        }
+
         private void Start()
         {
             StartCoroutine(SpawnEnemiesDelayed());
