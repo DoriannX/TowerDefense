@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2437147b21c049e2a0c958125efa8bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyCount: 5
+  _enemyCount: 1
   _spawnDelay: 0.5
   _spawnPos: {fileID: 1373673880}
   _path:
