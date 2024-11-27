@@ -1,26 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Runtime.GameEvents;
-using TMPro;
 using UnityEngine;
 
 namespace Runtime.Enemy
 {
     public class Enemy : MonoBehaviour
     {
-        [Header("Events")]
-        [SerializeField] private CharacterData _characterData;
-        
+        [Header("Events")] [SerializeField] private CharacterData _characterData;
+
         //Properties
         private List<Vector3> _path;
         private int _currentTargetIndex;
-        private float _currentWalkedDistance;
         private int[] _ids;
-        
+        private Vector3 _previousPos;
+        public Vector3 TraveledDistance { get; private set; }
+
         //Components
         private Transform _transform;
-        
+
         //Getter
         private Vector3 Direction
         {
@@ -37,37 +35,45 @@ namespace Runtime.Enemy
             _transform = transform;
         }
 
-        private void TrySetDirection(params int[] ids)
+        private void TrySetDirection(Vector3 direction, params int[] ids)
         {
-            if (! ids.Any(id => _ids.Contains(id)))
+            if (!ids.Any(id => _ids.Contains(id)))
             {
                 return;
             }
 
-            SetDirection();
+            SetDirection(direction);
         }
 
-        private void SetDirection()
+        private void SetDirection(Vector3 direction)
         {
-            _characterData.OnMovePerformed?.Invoke(Direction, _ids);
+            _characterData.OnMovePerformed?.Invoke(direction, _ids);
+            _transform.forward = direction;
         }
+
+        public void InitDirection()
+        {
+            SetDirection((_path[0] - _transform.position).normalized);
+        }
+
         public void Setup(List<Vector3> path, params int[] ids)
         {
             _path = path;
             _ids = ids;
-            _characterData.OnCreated?.AddListener(TrySetDirection);
+            _previousPos = _transform.position;
+            _characterData.OnCreated?.AddListener(getIds => TrySetDirection((_path[0] - _transform.position).normalized, getIds));
         }
 
         private void Update()
         {
-            Vector3 position = _transform.position;
-            position.y = 0;
-            SetDirection();
-            if (Vector3.Distance(position, _path[_currentTargetIndex % _path.Count]) > 0.1f)
+            TraveledDistance += _transform.position - _previousPos;
+            _previousPos = _transform.position;
+            if (Vector3.Dot(Direction, _transform.forward) > 0)
             {
                 return;
             }
             _currentTargetIndex++;
+            SetDirection(Direction);
         }
     }
 }

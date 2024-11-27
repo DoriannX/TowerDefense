@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Runtime.CharacterController;
 using Runtime.GameEvents;
 using UnityEngine;
@@ -10,7 +11,6 @@ namespace Runtime
     {
         [Header("Events")]
         [SerializeField] private GameObjectGameEvent _onHit;
-        [SerializeField] private GameEventId _onDead;
         [SerializeField] private GameEvent _onRevive;
         
         [Header("Properties")]
@@ -38,8 +38,13 @@ namespace Runtime
             _onHit.AddListener(Hit);
         }
 
-        private void Hit(GameObject obj)
+        private void Hit(GameObject obj, params int[] ids)
         {
+            if (!ids.Contains(_id.GetId()))
+            {
+                return;
+            }
+            
             Bullet bullet = obj.GetComponent<Bullet>();
             
             if (bullet == null)
@@ -62,8 +67,7 @@ namespace Runtime
                 Debug.Log("id is null on : " + gameObject.name);
                 return;
             }
-            _onDead?.Invoke(_id.GetId());
-            Debug.Log("Die "  + gameObject.name);
+            global::GameEvents.OnDead?.Invoke(_id.GetId());
         }
     }
 }

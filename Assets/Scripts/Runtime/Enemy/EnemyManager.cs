@@ -36,41 +36,42 @@ namespace Runtime.Enemy
             _enemyControllers = new ObjectPool<global::CharacterController>(
                 () =>
                 {
-                    int id = Id.Count + _enemyControllers.CountAll + 1;
                     global::CharacterController controller =
                         Instantiate(_enemyControllerPrefab, _spawnPos.position, Quaternion.identity);
-                    controller.GetComponent<Id>().SetId(id);
+                    int id = controller.GetComponent<Id>().GetId();
+
+                    Enemy enemy = _enemies.Get();
+                    enemy.transform.position = controller.transform.position;
+                    enemy.transform.parent = controller.transform;
+                    enemy.Setup(_path.Select(transform1 => transform1.position).ToList(), id);
+
+                    global::GameEvents.OnDead?.AddListener(ids =>
+                    {
+                        if (ids.Contains(id))
+                        {
+                            _enemyControllers.Release(controller);
+                        }
+                    });
+
                     return controller;
                 },
                 controller =>
                 {
                     controller.gameObject.SetActive(true);
+                    Enemy enemy = controller.GetComponentInChildren<Enemy>();
+                    enemy.Setup(_path.Select(transform1 => transform1.position).ToList(),
+                        controller.GetComponent<Id>().GetId());
                     controller.transform.position = _spawnPos.position;
                     controller.transform.rotation = Quaternion.identity;
-                }, controller => { controller.gameObject.SetActive(false); });
+                    enemy.InitDirection();
+                },
+                controller => { controller.gameObject.SetActive(false); });
 
             _enemies = new ObjectPool<Enemy>(() =>
             {
-                int id = Id.Count + _enemies.CountAll + 1;
-                Enemy enemy = Instantiate(_enemyPrefab, _enemyControllers.Get().transform);
-                enemy.Setup(_path.Select(transform1 => transform1.position).ToList(), id);
-                //_onDead.AddListener();
+                Enemy enemy = Instantiate(_enemyPrefab);
                 return enemy;
-            }, enemy => { enemy.gameObject.SetActive(true); }, enemy =>
-            {
-                enemy.gameObject.SetActive(false);
-                _enemyControllers.Release(enemy.GetComponentInParent<global::CharacterController>());
-            });
-        }
-
-        private void Update()
-        {
-            
-            global::GameEvents.OnPossess?.Invoke(156);
-            global::GameEvents.OnPossess?.AddListener(ints =>
-            {
-                Debug.Log(ints[0]);
-            });
+            }, enemy => { enemy.gameObject.SetActive(true); }, enemy => { enemy.gameObject.SetActive(false); });
         }
 
         private void Start()
@@ -87,7 +88,7 @@ namespace Runtime.Enemy
         {
             for (int i = 0; i < _enemyCount; i++)
             {
-                _enemies.Get();
+                _enemyControllers.Get();
                 yield return new WaitForSeconds(_spawnDelay);
             }
         }
