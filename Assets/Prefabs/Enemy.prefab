@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterData: {fileID: 11400000, guid: d3a86ca2824e4214499f9f719e2c2ef9, type: 2}
+  _damage: 10

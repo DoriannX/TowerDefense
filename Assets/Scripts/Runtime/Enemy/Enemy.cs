@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.CharacterController;
 using UnityEngine;
 
 namespace Runtime.Enemy
@@ -8,6 +9,9 @@ namespace Runtime.Enemy
     public class Enemy : MonoBehaviour
     {
         [Header("Events")] [SerializeField] private CharacterData _characterData;
+
+        [Header("Properties")] [SerializeField]
+        private float _damage;
 
         //Properties
         private List<Vector3> _path;
@@ -18,13 +22,20 @@ namespace Runtime.Enemy
 
         //Components
         private Transform _transform;
+        private Id _id;
+        private Id Id => _id ??= GetComponentInParent<Id>();
 
         //Getter
         private Vector3 Direction
         {
             get
             {
-                Vector3 direction = _path[_currentTargetIndex % _path.Count] - _transform.position;
+                int index = _currentTargetIndex;
+                if (_currentTargetIndex >= _path.Count)
+                {
+                    index = 0;
+                }
+                Vector3 direction = _path[index] - _transform.position;
                 direction.y = 0;
                 return direction.normalized;
             }
@@ -61,6 +72,7 @@ namespace Runtime.Enemy
             _path = path;
             _ids = ids;
             _previousPos = _transform.position;
+            _currentTargetIndex = 0;
             _characterData.OnCreated?.AddListener(getIds => TrySetDirection((_path[0] - _transform.position).normalized, getIds));
         }
 
@@ -68,11 +80,19 @@ namespace Runtime.Enemy
         {
             TraveledDistance += _transform.position - _previousPos;
             _previousPos = _transform.position;
+            
+            if (_currentTargetIndex >= _path.Count)
+            {
+                global::GameEvents.OnEnemyReachedEnd?.Invoke(_damage, Id.GetId());
+                return;
+            }
+            
             if (Vector3.Dot(Direction, _transform.forward) > 0)
             {
                 return;
             }
             _currentTargetIndex++;
+            
             SetDirection(Direction);
         }
     }

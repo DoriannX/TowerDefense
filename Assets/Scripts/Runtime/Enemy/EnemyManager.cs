@@ -47,10 +47,12 @@ namespace Runtime.Enemy
 
                     global::GameEvents.OnDead?.AddListener(ids =>
                     {
-                        if (ids.Contains(id))
-                        {
-                            _enemyControllers.Release(controller);
-                        }
+                        ReleaseEnemy(ids, id, controller);
+                    });
+
+                    global::GameEvents.OnEnemyReachedEnd?.AddListener((_, ids) =>
+                    {
+                        ReleaseEnemy(ids, id, controller);
                     });
 
                     return controller;
@@ -72,6 +74,14 @@ namespace Runtime.Enemy
                 Enemy enemy = Instantiate(_enemyPrefab);
                 return enemy;
             }, enemy => { enemy.gameObject.SetActive(true); }, enemy => { enemy.gameObject.SetActive(false); });
+        }
+
+        private void ReleaseEnemy(int[] ids, int id, global::CharacterController controller)
+        {
+            if (ids.Contains(id))
+            {
+                _enemyControllers.Release(controller);
+            }
         }
 
         private void Start()

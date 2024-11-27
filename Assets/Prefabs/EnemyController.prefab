@@ -138,7 +138,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 8
   _characterMovementProperties:
-    <WalkSpeed>k__BackingField: 15
+    <WalkSpeed>k__BackingField: 50
     <SprintSpeed>k__BackingField: 20
     <JumpForce>k__BackingField: 25
   _characterGroundProperties:
@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee92f8d501874d30b81067c03cfe3db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onHit: {fileID: 11400000, guid: cd1341882157abb4db0a6dec270e34a9, type: 2}
   _onRevive: {fileID: 11400000, guid: d0c223a28698fde46894c69ca4df6538, type: 2}
   _maxLife: 100
 --- !u!114 &-5374821958796503077
@@ -188,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58df68c1f5db4bb8ba09429f8e33ddd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onHit: {fileID: 11400000, guid: cd1341882157abb4db0a6dec270e34a9, type: 2}
 --- !u!54 &-3767354570960041858
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -93,6 +93,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfeb2f9ff8a2b084f9bdef20c865fc3c
+    m_Address: OnEnemyReachedEnd
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0c223a28698fde46894c69ca4df6538
     m_Address: OnRevive
     m_ReadOnly: 0

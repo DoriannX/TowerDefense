@@ -8,7 +8,6 @@ namespace Runtime
     [RequireComponent(typeof(Collider))]
     public class CollisionHandler : MonoBehaviour
     {
-        [SerializeField] private GameObjectGameEvent _onHit;
         
         //Components
         private Id _id;
@@ -20,7 +19,19 @@ namespace Runtime
 
         private void OnTriggerEnter(Collider other)
         {
-            _onHit?.Invoke(other.gameObject, _id.GetId());
+            HandleBullets(other);
+        }
+
+        private void HandleBullets(Collider other)
+        {
+            Bullet bullet = other.GetComponent<Bullet>();
+            
+            if (bullet == null)
+            {
+                return;
+            }
+            
+            global::GameEvents.OnHit?.Invoke(bullet.Damage, _id.GetId());
         }
     }
 }

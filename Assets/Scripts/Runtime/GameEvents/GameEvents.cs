@@ -20,7 +20,8 @@ public static class GameEvents
     public static Vector2GameEventId OnLookCanceled => GetEvent<Vector2GameEventId>("OnLookCanceled");
     public static GameEventId OnSprintCanceled => GetEvent<GameEventId>("OnSprintCanceled");
     public static GameEventId OnShootCanceled => GetEvent<GameEventId>("OnShootCanceled");
-    public static GameObjectGameEvent OnHit => GetEvent<GameObjectGameEvent>("OnHit");
+    public static FloatGameEvent OnHit => GetEvent<FloatGameEvent>("OnHit");
+    public static FloatGameEvent OnEnemyReachedEnd => GetEvent<FloatGameEvent>("OnEnemyReachedEnd");
     public static GameEvent OnRevive => GetEvent<GameEvent>("OnRevive");
     public static Vector3GameEventId OnMoveCanceled => GetEvent<Vector3GameEventId>("OnMoveCanceled");
 
