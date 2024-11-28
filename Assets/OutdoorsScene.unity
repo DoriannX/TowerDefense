@@ -1153,15 +1153,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2437147b21c049e2a0c958125efa8bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyCount: 150
   _spawnDelay: 0.5
   _spawnPos: {fileID: 1373673880}
   _path:
   - {fileID: 743272013}
   - {fileID: 300875794}
   - {fileID: 1285774874}
+  _enemiesSpawning:
+    _serializedList:
+    - Key: 1
+      Value: 15
+    - Key: 2
+      Value: 10
   _enemyControllerPrefab: {fileID: 6338616053748489445, guid: b31dc9f04ee6c124cb037f092c31f646, type: 3}
-  _enemyPrefab: {fileID: 1391112357572929676, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+  _enemyPrefabs:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+    - Key: 2
+      Value: {fileID: 7352942128694161034, guid: 9f14c045b90a32246952e88b51c39943, type: 3}
   _onDead: {fileID: 11400000, guid: 9342eca672c38484d976041d2bb707a1, type: 2}
 --- !u!1 &1611002839
 GameObject:

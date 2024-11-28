@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.CharacterController;
@@ -6,49 +5,16 @@ using UnityEngine;
 
 namespace Runtime.Enemy
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : BaseEnemy
     {
-        [Header("Events")] [SerializeField] private CharacterData _characterData;
-
-        [Header("Properties")] [SerializeField]
-        private float _damage;
-
-        //Properties
-        private List<Vector3> _path;
-        private int _currentTargetIndex;
-        private int[] _ids;
-        private Vector3 _previousPos;
-        public Vector3 TraveledDistance { get; private set; }
-
-        //Components
-        private Transform _transform;
+        
+        protected int[] Ids;
         private Id _id;
-        private Id Id => _id ??= GetComponentInParent<Id>();
+        protected Id Id => _id ??= GetComponentInParent<Id>();
 
-        //Getter
-        private Vector3 Direction
+        protected override void TrySetDirection(Vector3 direction, params int[] ids)
         {
-            get
-            {
-                int index = _currentTargetIndex;
-                if (_currentTargetIndex >= _path.Count)
-                {
-                    index = 0;
-                }
-                Vector3 direction = _path[index] - _transform.position;
-                direction.y = 0;
-                return direction.normalized;
-            }
-        }
-
-        private void Awake()
-        {
-            _transform = transform;
-        }
-
-        private void TrySetDirection(Vector3 direction, params int[] ids)
-        {
-            if (!ids.Any(id => _ids.Contains(id)))
+            if (!ids.Any(id => Ids.Contains(id)))
             {
                 return;
             }
@@ -56,42 +22,42 @@ namespace Runtime.Enemy
             SetDirection(direction);
         }
 
-        private void SetDirection(Vector3 direction)
+        protected override void SetDirection(Vector3 direction)
         {
-            _characterData.OnMovePerformed?.Invoke(direction, _ids);
-            _transform.forward = direction;
+            global::GameEvents.OnMovePerformed?.Invoke(direction, Ids);
+            EnemyTransform.forward = direction;
         }
 
-        public void InitDirection()
+        public override void InitDirection()
         {
-            SetDirection((_path[0] - _transform.position).normalized);
+            SetDirection((Path[0] - EnemyTransform.position).normalized);
         }
 
-        public void Setup(List<Vector3> path, params int[] ids)
+        public override void Setup(List<Vector3> path, params int[] ids)
         {
-            _path = path;
-            _ids = ids;
-            _previousPos = _transform.position;
-            _currentTargetIndex = 0;
-            _characterData.OnCreated?.AddListener(getIds => TrySetDirection((_path[0] - _transform.position).normalized, getIds));
+            Path = path;
+            Ids = ids;
+            PreviousPos = EnemyTransform.position;
+            CurrentTargetIndex = 0;
+            global::GameEvents.OnCreated?.AddListener(getIds => TrySetDirection((Path[0] - EnemyTransform.position).normalized, getIds));
         }
 
-        private void Update()
+        protected override void CheckIfReachedEnd()
         {
-            TraveledDistance += _transform.position - _previousPos;
-            _previousPos = _transform.position;
+            TraveledDistance += EnemyTransform.position - PreviousPos;
+            PreviousPos = EnemyTransform.position;
             
-            if (_currentTargetIndex >= _path.Count)
+            if (CurrentTargetIndex >= Path.Count)
             {
                 global::GameEvents.OnEnemyReachedEnd?.Invoke(_damage, Id.GetId());
                 return;
             }
             
-            if (Vector3.Dot(Direction, _transform.forward) > 0)
+            if (Vector3.Dot(Direction, EnemyTransform.forward) > 0)
             {
                 return;
             }
-            _currentTargetIndex++;
+            CurrentTargetIndex++;
             
             SetDirection(Direction);
         }
