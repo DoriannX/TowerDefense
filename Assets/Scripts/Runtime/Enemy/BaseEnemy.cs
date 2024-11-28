@@ -1,26 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Runtime.Enemy
 {
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
-        [Header("Properties")] 
-        [SerializeField] protected Material _enemyMaterial;
-        [SerializeField] protected float _damage;
+        [Header("Properties")] [SerializeField]
+        protected float _damage;
 
         //Properties
         protected List<Vector3> Path;
         protected int CurrentTargetIndex;
         protected Vector3 PreviousPos;
+        protected int[] ControlledIds;
+        public int[] GetControlledIds => ControlledIds;
+        protected Transform _controlledTransform;
         public Vector3 TraveledDistance { get; protected set; }
 
-        //Components
-        protected Transform EnemyTransform;
-        
         //Getter
-        public Material EnemyMaterial => _enemyMaterial;
-        
         protected Vector3 Direction
         {
             get
@@ -30,28 +28,17 @@ namespace Runtime.Enemy
                 {
                     index = 0;
                 }
-                Vector3 direction = Path[index] - EnemyTransform.position;
+
+                Vector3 direction = Path[index] - _controlledTransform.position;
                 direction.y = 0;
                 return direction.normalized;
             }
         }
-        
-        protected virtual void Awake()
-        {
-            EnemyTransform = transform;
-        }
-        
+
         protected virtual void Update()
         {
             CheckIfReachedEnd();
         }
-
-        void IEnemy.TrySetDirection(Vector3 direction, params int[] ids)
-        {
-            TrySetDirection(direction, ids);
-        }
-
-        protected abstract void TrySetDirection(Vector3 direction, params int[] ids);
 
         void IEnemy.SetDirection(Vector3 direction)
         {
@@ -62,7 +49,7 @@ namespace Runtime.Enemy
 
         public abstract void InitDirection();
 
-        public abstract void Setup(List<Vector3> path, params int[] ids);
+        public abstract void Setup(Transform controlledTransform, List<Vector3> path, params int[] ids);
 
         void IEnemy.CheckIfReachedEnd()
         {
@@ -70,6 +57,5 @@ namespace Runtime.Enemy
         }
 
         protected abstract void CheckIfReachedEnd();
-
     }
 }

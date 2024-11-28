@@ -17,7 +17,6 @@ namespace Runtime.Player
             global::GameEvents.OnEnemyReachedEnd?.AddListener((damage, ids) =>
             {
                 global::GameEvents.OnHit?.Invoke(damage, _id.GetId());
-                Debug.Log("enemy reached end");
             });
             
             global::GameEvents.OnDead?.AddListener(ids =>
