@@ -132,6 +132,11 @@ public class CharacterController : MonoBehaviour
 
         _characterMovement.StopJump();
     }
+    
+    public Vector3 GetVelocity()
+    {
+        return _characterMovement.Velocity;
+    }
 
     private Vector3 CalculateCollidedMovement(Vector3 deltaMovement, Vector3 collidedGravity)
     {

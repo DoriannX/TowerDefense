@@ -1,18 +1,11 @@
-using System;
+using System.Linq;
 using Runtime.CharacterController;
-using Runtime.GameEvents;
 using UnityEngine;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace Runtime
 {
     public class LifeManager : MonoBehaviour
     {
-        [Header("Events")]
-        [SerializeField] private GameObjectGameEvent _onHit;
-        [SerializeField] private GameEventId _onDead;
-        [SerializeField] private GameEvent _onRevive;
-        
         [Header("Properties")]
         [SerializeField] private float _maxLife;
         
@@ -24,7 +17,8 @@ namespace Runtime
 
         public void Revive()
         {
-            _onRevive?.Invoke();
+            //TODO: Revive
+            //global::GameEvents.OnRevive?.Invoke(_id.GetId());
         }
 
         private void Awake()
@@ -35,19 +29,17 @@ namespace Runtime
         private void Start()
         {
             _life = _maxLife;
-            _onHit.AddListener(Hit);
+            global::GameEvents.OnHit?.AddListener(Hit);
         }
 
-        private void Hit(GameObject obj)
+        private void Hit(float damage, params int[] ids)
         {
-            Bullet bullet = obj.GetComponent<Bullet>();
-            
-            if (bullet == null)
+            if (!ids.Contains(_id.GetId()))
             {
                 return;
             }
             
-            _life -= bullet.Damage;
+            _life -= damage;
             
             if (_life <= 0)
             {
@@ -62,8 +54,7 @@ namespace Runtime
                 Debug.Log("id is null on : " + gameObject.name);
                 return;
             }
-            _onDead?.Invoke(_id.GetId());
-            Debug.Log("Die "  + gameObject.name);
+            global::GameEvents.OnDead?.Invoke(_id.GetId());
         }
     }
 }

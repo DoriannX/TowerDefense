@@ -29,6 +29,10 @@ public class InputManager : MonoBehaviour
     private Action<int[]> _onShootCanceled;
     //Possess
     private Action<int[]> _onPossess;
+    //unfocus camera
+    private Action<int[]> _onToggleFocusCamera;
+    //change mode
+    private Action<int[]> _onToggleMode;
         
     private bool _isSprinting;
 
@@ -46,6 +50,8 @@ public class InputManager : MonoBehaviour
         _onShootStarted += characterData.OnShootStarted.Invoke;
         _onShootCanceled += characterData.OnShootCanceled.Invoke;
         _onPossess += characterData.OnPossess.Invoke;
+        _onToggleMode += GameEvents.OnToggleMode.Invoke;
+        _onToggleFocusCamera += GameEvents.OnToggleFocusCamera.Invoke;
     }
 
     private void Start()
@@ -120,6 +126,27 @@ public class InputManager : MonoBehaviour
         if (ctx.canceled)
         {
             _onShootCanceled?.Invoke(_ids);
+        }
+    }
+
+    public void OnToggleFocusCamera(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started)
+        {
+            _onToggleFocusCamera?.Invoke(_ids);
+        }
+        
+        if(ctx.canceled)
+        {
+            _onToggleFocusCamera?.Invoke(_ids);
+        }
+    }
+    
+    public void OnToggleMode(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started)
+        {
+            _onToggleMode?.Invoke( _ids);
         }
     }
         

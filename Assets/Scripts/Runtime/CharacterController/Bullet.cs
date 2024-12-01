@@ -9,6 +9,7 @@ namespace Runtime
     {
         //Components
         private Transform _transform;
+        private Rigidbody _rb;
         
         //Properties
         private float _bulletSpeed;
@@ -24,6 +25,7 @@ namespace Runtime
         private void Awake()
         {
             _transform = transform;
+            _rb = GetComponent<Rigidbody>();
         }
 
         private void OnEnable()
@@ -49,7 +51,7 @@ namespace Runtime
 
         private void Update()
         {
-            _transform.position += _bulletSpeed * Time.deltaTime * _direction;
+            _rb.position += _bulletSpeed * Time.deltaTime * _direction;
         }
 
         private void DestroyBullet()

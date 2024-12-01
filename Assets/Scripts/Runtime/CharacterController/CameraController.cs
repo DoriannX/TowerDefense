@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour
 
     //Properties
     private float _pivotXRot;
+    private bool _focused;
         
 
     private void Awake()
@@ -39,8 +40,22 @@ public class CameraController : MonoBehaviour
 
         _characterData.OnLookPerformed.AddListener(SetLookDeltaValue);
         _characterData.OnPossess.AddListener(OnPossess);
+        GameEvents.OnToggleFocusCamera?.AddListener(OnToggleFocusCamera);
+        _focused = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void OnToggleFocusCamera(int[] ids)
+    {
+        if (!ids.Contains(_id.GetId()))
+        {
+            return;
+        }
+        _focused = !_focused;
+        Cursor.visible = !_focused;
+        Cursor.lockState = _focused ? CursorLockMode.Locked : CursorLockMode.None;
+        
     }
 
     private void OnPossess(int[] obj)
@@ -56,7 +71,7 @@ public class CameraController : MonoBehaviour
 
     private void SetLookDeltaValue(Vector2 lookDeltaValue, params int[] id)
     {
-        if (!id.Contains(_id.GetId()))
+        if (!id.Contains(_id.GetId()) || !_focused)
         {
             return;
         }

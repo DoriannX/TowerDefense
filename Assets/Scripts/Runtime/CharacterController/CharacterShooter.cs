@@ -32,6 +32,7 @@ namespace Runtime.CharacterController
         private bool _canShoot = true;
         private int _bulletCount;
         List<Bullet> _startBullets = new();
+        private bool _shootMode = true;
 
         private void Awake()
         {
@@ -44,6 +45,8 @@ namespace Runtime.CharacterController
         {
             _characterData.OnShootStarted.AddListener(TryShoot);
             
+            global::GameEvents.OnToggleMode?.AddListener(ToggleMode);
+            
             for (int i = 0; i < _startBulletCount; i++)
             {
                 _startBullets.Add(_pool.Get());
@@ -53,6 +56,16 @@ namespace Runtime.CharacterController
             {
                 _pool.Release(bullet);
             }
+        }
+
+        private void ToggleMode(int[] ids)
+        {
+            if(!ids.Contains(_id.GetId()))
+            {
+                return;
+            }
+            
+            _shootMode = !_shootMode;
         }
 
         private void OnDestroy()
@@ -85,7 +98,7 @@ namespace Runtime.CharacterController
 
         private void TryShoot(params int[] ids)
         {
-            if (!_canShoot || !ids.Contains(_id.GetId()))
+            if (!_canShoot || !ids.Contains(_id.GetId()) || !_shootMode)
             {
                 return;
             }
