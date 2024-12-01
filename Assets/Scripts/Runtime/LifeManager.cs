@@ -6,7 +6,6 @@ namespace Runtime
 {
     public class LifeManager : MonoBehaviour
     {
-        
         [Header("Properties")]
         [SerializeField] private float _maxLife;
         

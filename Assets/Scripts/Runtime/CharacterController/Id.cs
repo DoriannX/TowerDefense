@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ namespace Runtime.CharacterController
         private static HashSet<int> _ids = new();
         public static int Count => _ids.Count;
         [SerializeField] private int _id;
+        
+        public static List<int> Ids => _ids.ToList();
 
         public void SetId(int id)
         {

@@ -25,8 +25,7 @@ namespace Runtime.Player
                 {
                     return;
                 }
-                
-                gameObject.SetActive(false);
+                global::GameEvents.OnLose?.Invoke(_id.GetId());
             });
         }
     }

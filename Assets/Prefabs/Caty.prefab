@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2906221004677053788}
   - component: {fileID: -5374821958796503077}
   - component: {fileID: -3767354570960041858}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Caty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 8394953591598097635}
   - component: {fileID: 3309756278772904966}
   - component: {fileID: 5475410296714533383}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7086418019024220393}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shooter2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +517,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7916468125883216335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shooter1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

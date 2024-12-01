@@ -29,6 +29,7 @@ namespace Runtime.Enemy
         private readonly List<ObjectPool<global::CharacterController>> _enemyPools = new();
         private List<ObjectPool<BaseEnemy>> _enemyControllerPools = new();
         private EnemyId _currentlySpawnedEnemyId;
+        private bool _spawnFinished = true;
 
         private void Awake()
         {
@@ -49,7 +50,8 @@ namespace Runtime.Enemy
                             Instantiate(_enemyPrefabs[enemyIds[i1]].Enemy, _spawnPos.position, Quaternion.identity);
                         global::GameEvents.OnDead?.AddListener(ids =>
                         {
-                            if (!ids.Contains(controller.GetComponent<Id>().GetId()))
+                            int id = controller.GetComponent<Id>().GetId();
+                            if (!ids.Contains(id))
                             {
                                 return;
                             }
@@ -58,7 +60,8 @@ namespace Runtime.Enemy
 
                         global::GameEvents.OnEnemyReachedEnd?.AddListener((_, ids) =>
                         {
-                            if (!ids.Contains(controller.GetComponent<Id>().GetId()))
+                            int id = controller.GetComponent<Id>().GetId();
+                            if (!ids.Contains(id))
                             {
                                 return;
                             }
@@ -77,20 +80,24 @@ namespace Runtime.Enemy
                     BaseEnemy enemy = Instantiate(_enemyPrefabs[enemyIds[i1]].Controller);
                     global::GameEvents.OnDead?.AddListener(ids =>
                     {
-                        if (!ids.Intersect(enemy.GetControlledIds).Any())
+                        int[] intersectIds = ids.Intersect(enemy.GetControlledIds).ToArray();
+                        if (intersectIds.Length == 0)
                         {
                             return;
                         }
                         _enemyControllerPools[^1].Release(enemy);
+                        global::GameEvents.OnEnemyReleased?.Invoke(intersectIds);
                     });
 
                     global::GameEvents.OnEnemyReachedEnd?.AddListener((_, ids) =>
                     {
-                        if (!ids.Intersect(enemy.GetControlledIds).Any())
+                        int[] intersectIds = ids.Intersect(enemy.GetControlledIds).ToArray();
+                        if (intersectIds.Length == 0)
                         {
                             return;
                         }
                         _enemyControllerPools[^1].Release(enemy);
+                        global::GameEvents.OnEnemyReleased?.Invoke(intersectIds);
                     });
                     
                     return enemy;
@@ -101,18 +108,22 @@ namespace Runtime.Enemy
 
         private void Start()
         {
-            StartCoroutine(SpawnEnemiesDelayed());
+            global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
         }
 
-        private void OnDestroy()
+        public void AdvanceWave()
         {
-            _onDead.ClearListeners();
+            TryTogglePhase();
+            _spawnFinished = false;
+            StartCoroutine(SpawnEnemiesDelayed());
+            _waveIndex++;
         }
 
         private IEnumerator SpawnEnemiesDelayed()
         {
             if (_waveIndex > _enemiesSpawning.Count - 1)
             {
+                global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
                 yield break;
             }
             
@@ -131,6 +142,22 @@ namespace Runtime.Enemy
                     yield return new WaitForSeconds(_spawnDelay);
                 }
             }
+            _spawnFinished = true;
+        }
+
+        private void TryTogglePhase(params int[] obj)
+        {
+            if(!_spawnFinished)
+            {
+                return;
+            }
+            
+            int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
+            if (countActive != 0)
+            {
+                return;
+            }
+            global::GameEvents.OnTogglePhase.Invoke(Id.Ids.ToArray());
         }
     }
 

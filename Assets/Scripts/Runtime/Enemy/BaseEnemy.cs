@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.CharacterController;
 using UnityEngine;
 
 namespace Runtime.Enemy
@@ -8,6 +10,7 @@ namespace Runtime.Enemy
     {
         [Header("Properties")] [SerializeField]
         protected float _damage;
+        [SerializeField] private int _moneyReward;
 
         //Properties
         protected List<Vector3> Path;
@@ -33,6 +36,22 @@ namespace Runtime.Enemy
                 direction.y = 0;
                 return direction.normalized;
             }
+        }
+
+        protected virtual void Start()
+        {
+            global::GameEvents.OnDead?.AddListener(OnEnemyDead);
+        }
+
+        protected virtual void OnEnemyDead(params int[] ids)
+        {
+            int[] intersectIds = ids.Intersect(ControlledIds).ToArray();
+            if (intersectIds.Length <= 0)
+            {
+                return;
+            }
+            
+            global::GameEvents.OnEnemyKilled?.Invoke(_moneyReward, intersectIds);
         }
 
         protected virtual void Update()

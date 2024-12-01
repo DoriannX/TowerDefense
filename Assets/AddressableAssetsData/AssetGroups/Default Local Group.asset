@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 27d4f534b8c6d72438ff8373b8998c93
   m_SerializeEntries:
+  - m_GUID: 019884952315e154b804c40c146f7558
+    m_Address: OnEnemyReleased
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0bacfa6bd5ad0db468b143049081e3b7
     m_Address: OnShootStarted
     m_ReadOnly: 0
@@ -33,6 +39,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f7b78af3a76d5c4bad4945d912c1dd5
+    m_Address: OnTogglePhase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39f689b4d9578c042bb40086efadc0f6
+    m_Address: OnEnemyKilled
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 619b5069389d8e04599a7c04e1f60ff2
+    m_Address: OnToggleFocusCamera
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6677f14baeace8745a84df9a809ecfbe
     m_Address: OnJumpStarted
     m_ReadOnly: 0
@@ -45,6 +69,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameEvents
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d26581be1501fa42a5a6904228ff497
+    m_Address: OnLose
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e5f2718afc1bb34090998d3dec349cb
     m_Address: OnLookPerformed
     m_ReadOnly: 0
@@ -53,6 +83,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8fdead35766f0df46a1b717d20d15af1
     m_Address: OnCreated
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 909a116757c90444b9b5fbf31322743c
+    m_Address: OnWin
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
@@ -107,6 +143,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb3d638c356e1b54da85c5e430df436e
     m_Address: OnMoveCanceled
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameEvents
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f96eaf4db9593d94689bc50c557f164c
+    m_Address: OnToggleMode
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents

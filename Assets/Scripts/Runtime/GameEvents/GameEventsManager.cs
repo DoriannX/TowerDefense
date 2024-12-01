@@ -17,7 +17,6 @@ namespace Runtime.GameEvents
             if (_instance == null)
             {
                 _instance = this;
-                DontDestroyOnLoad(this);
             }
             else
             {
