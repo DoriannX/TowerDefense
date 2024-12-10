@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
         
     //Values
     private Vector3 _moveValue;
-    public Vector2 LookDeltaValue { get; private set; }
+    private Vector2 LookDeltaValue { get; set; }
 
     //Actions
     //Move
@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         
     private bool _isSprinting;
 
-    public void SetupCharacter(CharacterData characterData)
+    private void SetupCharacter(CharacterData characterData)
     {
         _onMovePerformed += characterData.OnMovePerformed.Invoke;
         _onMoveCanceled += characterData.OnMoveCanceled.Invoke;
@@ -148,46 +148,5 @@ public class InputManager : MonoBehaviour
         {
             _onToggleMode?.Invoke( _ids);
         }
-    }
-        
-    private void ObsoleteUpdate()
-    {
-        /*float force = _isSprinting ? _sprintForce : _moveForce;
-            if (Input.GetKey(KeyCode.W))
-            {
-                _characterController.AddVelocity(_characterController.transform.forward * (force * Time.fixedDeltaTime));
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                _characterController.AddVelocity(-_characterController.transform.right * (Time.fixedDeltaTime * force));
-            }
-            
-            if (Input.GetKey(KeyCode.S))
-            {
-                _characterController.AddVelocity(-_characterController.transform.forward * (force * Time.fixedDeltaTime));
-            }
-            
-            if (Input.GetKey(KeyCode.D))
-            {
-                _characterController.AddVelocity(_characterController.transform.right * (force * Time.fixedDeltaTime));
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                _isSprinting = true;
-            }
-            
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                _isSprinting = false;
-            }
-            
-            
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                
-            }*/
     }
 }
