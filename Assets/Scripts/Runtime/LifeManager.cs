@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Runtime
 {
+    [RequireComponent(typeof(Id))]
     public class LifeManager : MonoBehaviour
     {
         [Header("Properties")]
@@ -29,16 +30,21 @@ namespace Runtime
         private void Start()
         {
             _life = _maxLife;
-            global::GameEvents.OnHit?.AddListener(Hit);
+            global::GameEvents.OnHit?.AddListener(TryHit);
         }
 
-        private void Hit(float damage, params int[] ids)
+        private void TryHit(float damage, params int[] ids)
         {
             if (!ids.Contains(_id.GetId()))
             {
                 return;
             }
-            
+
+            Hit(damage);
+        }
+
+        public void Hit(float damage)
+        {
             _life -= damage;
             
             if (_life <= 0)
@@ -49,11 +55,6 @@ namespace Runtime
 
         private void Die()
         {
-            if (_id == null)
-            {
-                Debug.Log("id is null on : " + gameObject.name);
-                return;
-            }
             global::GameEvents.OnDead?.Invoke(_id.GetId());
         }
     }
