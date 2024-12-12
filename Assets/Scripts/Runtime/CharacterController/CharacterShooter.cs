@@ -71,9 +71,9 @@ namespace Runtime.CharacterController
                 Vector3 touchedDir = hitInfo.point - currentGun.position;
                 Debug.DrawRay(currentGun.position, touchedDir, Color.green, 5f);
                 DebugShapeCasts.DebugDrawSphere(hitInfo.point, .5f, Color.cyan, 5f);
-                if (hitInfo.transform.TryGetComponent(out LifeManager lifeManager))
+                if (hitInfo.transform.TryGetComponent(out IShootable shootable))
                 {
-                    lifeManager.Hit(_damage);
+                    shootable.Hit(_damage);
                 }
             }
 

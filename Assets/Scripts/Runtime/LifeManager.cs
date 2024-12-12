@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Runtime
 {
     [RequireComponent(typeof(Id))]
-    public class LifeManager : MonoBehaviour
+    public class LifeManager : MonoBehaviour, IShootable
     {
         [Header("Properties")]
         [SerializeField] private float _maxLife;
@@ -43,6 +43,11 @@ namespace Runtime
             Hit(damage);
         }
 
+        private void Die()
+        {
+            global::GameEvents.OnDead?.Invoke(_id.GetId());
+        }
+
         public void Hit(float damage)
         {
             _life -= damage;
@@ -51,11 +56,6 @@ namespace Runtime
             {
                 Die();
             }
-        }
-
-        private void Die()
-        {
-            global::GameEvents.OnDead?.Invoke(_id.GetId());
         }
     }
 }
