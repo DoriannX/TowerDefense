@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6338616053748489445}
   - component: {fileID: 7467012575472983208}
   - component: {fileID: 2906221004677053788}
-  - component: {fileID: -5374821958796503077}
   - component: {fileID: -3767354570960041858}
   m_Layer: 6
   m_Name: Libilla
@@ -174,18 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLife: 100
---- !u!114 &-5374821958796503077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5296415343605156716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58df68c1f5db4bb8ba09429f8e33ddd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &-3767354570960041858
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -226,6 +213,7 @@ GameObject:
   - component: {fileID: 8394953591598097635}
   - component: {fileID: 3309756278772904966}
   - component: {fileID: 5475410296714533383}
+  - component: {fileID: 9163428221828069358}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -468,15 +456,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c9c31f11524ce2a0f92d57f1489786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnTransforms:
-  - {fileID: 7916468125883216335}
-  - {fileID: 7086418019024220393}
-  _bulletPrefab: {fileID: 1048033078350502547, guid: 0558c13f29980d84591c585983ae573a, type: 3}
+  _guns:
+  - {fileID: 0}
+  - {fileID: 0}
   _shotDelay: 0
+  _damage: 0
   _shootDistance: 9999999
-  _bulletSpeed: 50
-  _startBulletCount: 15
-  _characterData: {fileID: 11400000, guid: d3a86ca2824e4214499f9f719e2c2ef9, type: 2}
+--- !u!114 &9163428221828069358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297411861940051413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d31981b38b40a9847abfde427b344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isIdSerialized: 0
+  _id: 0
 --- !u!1 &8889459325135758604
 GameObject:
   m_ObjectHideFlags: 0
