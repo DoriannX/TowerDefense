@@ -9,29 +9,29 @@ namespace Runtime.Enemy
     {
         [Header("Properties")]
         [SerializeField] private float _lineWidth = 0.1f;
+
         [SerializeField] private float _skinWidth = 0.01f;
         [SerializeField] private int _maxDepth = 10;
         [SerializeField] private int _maxIterations = 1000;
         [SerializeField] private float _tryingLength = 1;
-        
+
         private List<Transform> _path;
 
         private List<Transform> GetPath
         {
             get
             {
-                if (_path == null || _path.Count == 0 || _path.Any(t => t == null) || _path.Count != GetTransform.childCount)
+                if (_path == null || _path.Count == 0 || _path.Any(t => t == null) ||
+                    _path.Count != GetTransform.childCount - 1)
                 {
                     _path = new List<Transform>();
-                    
+
                     if ((GetTransform.childCount <= 1 && GetLineRenderer != null) || GetTransform.childCount <= 0)
                     {
                         Debug.LogWarning("Path is empty in PathCreator");
                     }
-                    
+
                     List<Transform> children = GetTransform.GetComponentsInChildren<Transform>().ToList();
-                    Debug.Log("path is not ready");
-                    Debug.Log(children.Count);
                     foreach (Transform child in children)
                     {
                         if (child == GetTransform || child == GetLineRenderer.transform)
@@ -46,6 +46,7 @@ namespace Runtime.Enemy
                 return _path;
             }
         }
+
         private List<Vector3> _previousPath = new();
         private LineRenderer _lineRenderer;
         private Transform _transform;
@@ -118,6 +119,7 @@ namespace Runtime.Enemy
             {
                 return;
             }
+
             AddPos(GetPath[0].position);
 
             for (int i = 1; i < GetPath.Count; i++)
@@ -139,6 +141,7 @@ namespace Runtime.Enemy
                 {
                     break;
                 }
+
                 currentPos = newPos;
                 direction = endPoint - currentPos;
                 iterations++;
@@ -162,7 +165,8 @@ namespace Runtime.Enemy
 
             float dist = displacement.magnitude + _skinWidth;
 
-            bool hitSomething = Physics.SphereCast(pos, _lineWidth, displacement.normalized, out RaycastHit hitInfo, dist);
+            bool hitSomething =
+                Physics.SphereCast(pos, _lineWidth, displacement.normalized, out RaycastHit hitInfo, dist);
 
             if (!hitSomething)
             {
@@ -173,12 +177,12 @@ namespace Runtime.Enemy
             //To get the velocity needed to snap to the surface
             Vector3 snapToSurface =
                 (hitInfo.distance - _skinWidth) * displacement.normalized;
-            
+
             if (snapToSurface.magnitude <= _skinWidth)
             {
                 snapToSurface = Vector3.zero;
             }
-            
+
             AddPos(pos + snapToSurface);
 
             //To project the leftover velocity to the surface (slide)

@@ -1,18 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using AYellowpaper.SerializedCollections;
 using Runtime.CharacterController;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Pool;
 
 namespace Runtime.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        [Header("Properties")] [SerializeField]
+        /*[Header("Properties")] [SerializeField]
         private float _spawnDelay;
 
         [SerializeField] private int _waveIndex;
@@ -173,6 +170,64 @@ namespace Runtime.Enemy
             CheckWin();
 
             global::GameEvents.OnTogglePhase.Invoke(Id.Ids.ToArray());
+        }*/
+
+        private int _waveIndex;
+        private int _currentSpawnedEnemyIndex;
+        [SerializeField] private List<Wave> _waves = new();
+        [SerializeField] private float _spawnDelay;
+        [SerializeField] private PathCreator _pathCreator;
+        public Action OnWaveFinished;
+
+        private void Awake()
+        {
+            Assert.IsNotNull(_waves, "waves is null in EnemyManager");
+            Assert.IsFalse(_waves.Count == 0, "There is no waves in EnemyManager");
+            Assert.IsNotNull(_pathCreator, "path creator is null in EnemyManager");
+        }
+
+        public void AdvanceWave()
+        {
+            StartCoroutine(SpawnEnemiesOfThisWave());
+            _waveIndex++;
+        }
+
+        private IEnumerator SpawnEnemiesOfThisWave()
+        {
+            for (int i = 0; i < _waves[_waveIndex].EnemiesOfWave.Count; i++)
+            {
+                _currentSpawnedEnemyIndex = i;
+                EnemyContainer enemy = _waves[_waveIndex].EnemiesOfWave[i];
+                for (int j = 0; j < enemy.Count; j++)
+                {
+                    //TODO: also spawn the controller
+                    //TODO: (optional) make a single pool
+
+                    Instantiate(enemy.Enemy, _pathCreator.GetPositions()[0], Quaternion.identity);
+
+                    if (i < _waves[_waveIndex].EnemiesOfWave.Count - 1)
+                    {
+                        yield return new WaitForSeconds(_spawnDelay);
+                    }
+                }
+            }
+
+            global::GameEvents.OnEnemyKilled?.AddListener(OnEnemyKilled);
+            OnWaveFinished?.Invoke();
+        }
+
+        private void OnEnemyKilled(int arg1, int[] arg2)
+        {
+            CheckWin();
+            global::GameEvents.OnEnemyKilled?.RemoveListener(OnEnemyKilled);
+        }
+
+        private void CheckWin()
+        {
+            if (_waveIndex >= _waves.Count && _currentSpawnedEnemyIndex == _waves[_waveIndex].EnemiesOfWave.Count)
+            {
+                global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
+            }
         }
     }
 
