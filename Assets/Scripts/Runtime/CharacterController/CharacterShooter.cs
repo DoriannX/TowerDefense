@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CharacterDebugger;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace Runtime.CharacterController
         //Properties
         private bool _canShoot = true;
         private bool _shootMode = true;
+        private bool _isShooting;
         private int _currentGun = 0;
 
         private void Awake()
@@ -37,7 +39,16 @@ namespace Runtime.CharacterController
         {
             Assert.IsNotNull(_guns, "guns is null");
             global::GameEvents.OnToggleMode?.AddListener(ToggleMode);
-            global::GameEvents.OnShootStarted?.AddListener(TryShoot);
+            global::GameEvents.OnShootStarted?.AddListener(TryStartShoot);
+            global::GameEvents.OnShootCanceled?.AddListener(TryStopShoot);
+        }
+
+        private void Update()
+        {
+            if (_isShooting)
+            {
+                TryShoot();
+            }
         }
 
         private void ToggleMode(int[] ids)
@@ -50,15 +61,50 @@ namespace Runtime.CharacterController
             _shootMode = !_shootMode;
         }
 
-        private void TryShoot(params int[] ids)
+        #region TryShoot
+
+        //Overload
+        private void TryShoot()
         {
-            if (!_canShoot || !ids.Contains(_id.GetId()) || !_shootMode)
+            if (!_canShoot || !_shootMode)
             {
                 return;
             }
 
             Shoot();
             _canShoot = false;
+        }
+
+        #endregion
+
+        private void TryStartShoot(params int[] ids)
+        {
+            if (!ids.Contains(_id.GetId()))
+            {
+                return;
+            }
+
+            StartShoot();
+        }
+
+        private void StartShoot()
+        {
+            _isShooting = true;
+        }
+
+        private void TryStopShoot(params int[] ids)
+        {
+            if (!ids.Contains(_id.GetId()))
+            {
+                return;
+            }
+
+            StopShoot();
+        }
+
+        private void StopShoot()
+        {
+            _isShooting = false;
         }
 
         private void Shoot()
