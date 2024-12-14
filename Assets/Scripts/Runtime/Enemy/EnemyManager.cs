@@ -113,32 +113,22 @@ namespace Runtime.Enemy
             }
         }
 
-        private void Start()
-        {
-            global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
-        }
-
-        //TODO: regarder pour retirer le trytogglephase
         public void AdvanceWave()
         {
-            TryTogglePhase();
             _spawnFinished = false;
             StartCoroutine(SpawnEnemiesDelayed());
             _waveIndex++;
         }
-
-        //TODO: fix cette fonction qui s'appelle qu'une seul fois au debut
-        //Elle est censé être appeler quand le spawner a fini de spawner et quand un ennemi est mort
-        private bool CheckWin()
+        private void CheckWin()
         {
-            Debug.Log(_enemyPools.Count(pool => pool.CountActive > 0));
-            if (_waveIndex < _enemiesSpawning.Count || _enemyPools.Any(pool => pool.CountActive > 0))
+            int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
+            if (_waveIndex < _enemiesSpawning.Count || countActive > 0)
             {
-                return false;
+                return;
             }
 
             global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
-            return true;
+            return;
         }
 
         private IEnumerator SpawnEnemiesDelayed()
@@ -159,15 +149,11 @@ namespace Runtime.Enemy
                 }
             }
             _spawnFinished = true;
+            global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
         }
 
         private void TryTogglePhase(params int[] obj)
         {
-            if (!_spawnFinished)
-            {
-                return;
-            }
-
             int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
             if (countActive != 0)
             {
