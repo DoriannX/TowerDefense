@@ -36,11 +36,6 @@ namespace Runtime.Enemy
 
         private void Awake()
         {
-            //TODO: transformer l'ennemi controller en vrai controller et pas en ennemi 
-            //Pour ce faire  :
-            //- au lieu de quand on spawn un controller on spawn un ennemi spawn un controller puis un enemi et link les deux
-            //- ajouter une variable transform dans l'ennemi qui verifie au lieu de le mettre en enfant
-
             EnemyId[] enemyIds = (EnemyId[])Enum.GetValues(typeof(EnemyId));
 
             for (int i = 0; i < _enemyPrefabs.Count; i++)
@@ -75,8 +70,8 @@ namespace Runtime.Enemy
 
                         return controller;
                     },
-                    controller => { controller.gameObject.SetActive(true); },
-                    controller => { controller.gameObject.SetActive(false); });
+                    enemy => { enemy.gameObject.SetActive(true); },
+                    enemy => { enemy.gameObject.SetActive(false); });
 
                 _enemyPools.Add(enemyPool);
 
@@ -142,9 +137,12 @@ namespace Runtime.Enemy
                 for (int i = 0; i < enemySpawning.V2; i++)
                 {
                     global::CharacterController enemy = _enemyPools[index].Get();
+                    enemy.transform.position = _spawnPos.position;
                     BaseEnemy enemyController = _enemyControllerPools[index].Get();
                     enemyController.Setup(enemy.transform, _path.Select(transform1 => transform1.position).ToList(),
                         enemy.GetComponent<Id>().GetId());
+                    
+                    //To not have the delay when it's the last one spawning
                     if (i < enemySpawning.V2-1)
                     {
                         yield return new WaitForSeconds(_spawnDelay);
