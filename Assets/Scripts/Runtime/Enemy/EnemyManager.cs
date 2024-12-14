@@ -23,21 +23,25 @@ namespace Runtime.Enemy
 
         [Header("Prefabs")] [SerializeField] private SerializedDictionary<EnemyId, EnemyPrefab> _enemyPrefabs;
 
-        [Header("Game events")] [SerializeField]
-        private GameEventId _onDead;
-
         //Properties
         private readonly List<ObjectPool<global::CharacterController>> _enemyPools = new();
-        private List<ObjectPool<BaseEnemy>> _enemyControllerPools = new();
+        private readonly List<ObjectPool<BaseEnemy>> _enemyControllerPools = new();
         private EnemyId _currentlySpawnedEnemyId;
-        private bool _spawnFinished = true;
 
         //Actions
         public Action OnWaveFinished;
 
+
         private void Awake()
         {
             Assert.IsNotNull(_pathCreator, "pathCreator is null in EnemyManager");
+            Assert.IsNotNull(_spawnPos, "Spawn position is null in EnemyManager");
+            Assert.IsFalse(_enemiesSpawning.Count == 0, "There is no enemies to spawn in EnemyManager");
+            Assert.IsFalse(_enemyPrefabs.Count == 0, "There is no enemies prefab in EnemyManager");
+            if (_spawnDelay <= 0)
+            {
+                Debug.LogWarning(_spawnDelay + " is less or equal to 0 in EnemyManager");
+            }
             EnemyId[] enemyIds = (EnemyId[])Enum.GetValues(typeof(EnemyId));
 
             for (int i = 0; i < _enemyPrefabs.Count; i++)
@@ -113,10 +117,10 @@ namespace Runtime.Enemy
         public void AdvanceWave()
         {
             global::GameEvents.OnTogglePhase.Invoke(Id.Ids.ToArray());
-            _spawnFinished = false;
             StartCoroutine(SpawnEnemiesDelayed());
             _waveIndex++;
         }
+
         private void CheckWin()
         {
             int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
@@ -143,15 +147,15 @@ namespace Runtime.Enemy
                     BaseEnemy enemyController = _enemyControllerPools[index].Get();
                     enemyController.Setup(enemy.transform, _pathCreator.GetPositions(),
                         enemy.GetComponent<Id>().GetId());
-                    
+
                     //To not have the delay when it's the last one spawning
-                    if (i < enemySpawning.V2-1)
+                    if (i < enemySpawning.V2 - 1)
                     {
                         yield return new WaitForSeconds(_spawnDelay);
                     }
                 }
             }
-            _spawnFinished = true;
+
             global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
         }
 
@@ -162,9 +166,9 @@ namespace Runtime.Enemy
             {
                 return;
             }
-            
+
             global::GameEvents.OnEnemyReleased?.RemoveListener(TryTogglePhase);
-            
+
             OnWaveFinished?.Invoke();
             CheckWin();
 

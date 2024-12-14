@@ -3,6 +3,7 @@ using System.Linq;
 using Runtime.CharacterController;
 using Runtime.Turrets;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Runtime.Player
 {
@@ -40,6 +41,8 @@ namespace Runtime.Player
 
         private void Start()
         {
+            Assert.IsFalse(_turretPrefabs.Count == 0, "There is no turret prefabs in TurretPlacer");
+            
             global::GameEvents.OnToggleMode?.AddListener(ToggleMode);
             global::GameEvents.OnShootStarted?.AddListener(TryPlaceTurret);
             global::GameEvents.OnTogglePhase?.AddListener(TogglePhase);
@@ -76,11 +79,11 @@ namespace Runtime.Player
                 return;
             }
 
-            foreach (GameObject preview in _previews.Select(preview => preview.gameObject))
+            foreach (BaseTurret preview in _previews)
             {
-                if (preview.activeSelf)
+                if (preview.gameObject.activeSelf)
                 {
-                    preview.SetActive(false);
+                    preview.gameObject.SetActive(false);
                 }
             }
 

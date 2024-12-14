@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8617995544345869479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3494093563820329390}
+  - component: {fileID: 5653136308076274600}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3494093563820329390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617995544345869479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.88, z: 16.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5653136308076274600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617995544345869479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2437147b21c049e2a0c958125efa8bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnDelay: 0.5
+  _waveIndex: 0
+  _spawnPos: {fileID: 3494093563820329390}
+  _path:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _enemiesSpawning:
+  - <List>k__BackingField:
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 3
+    - <V1>k__BackingField: 2
+      <V2>k__BackingField: 2
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 5
+  - <List>k__BackingField:
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 3
+    - <V1>k__BackingField: 2
+      <V2>k__BackingField: 2
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 5
+  - <List>k__BackingField:
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 3
+    - <V1>k__BackingField: 2
+      <V2>k__BackingField: 2
+    - <V1>k__BackingField: 1
+      <V2>k__BackingField: 5
+  _enemyPrefabs:
+    _serializedList:
+    - Key: 1
+      Value:
+        <Enemy>k__BackingField: {fileID: 6338616053748489445, guid: b31dc9f04ee6c124cb037f092c31f646, type: 3}
+        <Controller>k__BackingField: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+    - Key: 2
+      Value:
+        <Enemy>k__BackingField: {fileID: 6338616053748489445, guid: 58075c975a9c49e40afb626d3d034693, type: 3}
+        <Controller>k__BackingField: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+  _onDead: {fileID: 11400000, guid: 9342eca672c38484d976041d2bb707a1, type: 2}
