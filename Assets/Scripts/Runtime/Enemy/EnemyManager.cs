@@ -31,6 +31,9 @@ namespace Runtime.Enemy
         private EnemyId _currentlySpawnedEnemyId;
         private bool _spawnFinished = true;
 
+        //Actions
+        public Action OnWaveFinished;
+
         private void Awake()
         {
             //TODO: transformer l'ennemi controller en vrai controller et pas en ennemi 
@@ -55,6 +58,7 @@ namespace Runtime.Enemy
                             {
                                 return;
                             }
+
                             _enemyPools[^1].Release(controller);
                         });
 
@@ -65,6 +69,7 @@ namespace Runtime.Enemy
                             {
                                 return;
                             }
+
                             _enemyPools[^1].Release(controller);
                         });
 
@@ -85,6 +90,7 @@ namespace Runtime.Enemy
                         {
                             return;
                         }
+
                         _enemyControllerPools[^1].Release(enemy);
                         global::GameEvents.OnEnemyReleased?.Invoke(intersectIds);
                     });
@@ -96,37 +102,37 @@ namespace Runtime.Enemy
                         {
                             return;
                         }
+
                         _enemyControllerPools[^1].Release(enemy);
                         global::GameEvents.OnEnemyReleased?.Invoke(intersectIds);
                     });
-                    
+
                     return enemy;
                 }, enemy => { enemy.gameObject.SetActive(true); }, enemy => { enemy.gameObject.SetActive(false); });
                 _enemyControllerPools.Add(enemyControllerPool);
             }
         }
 
-        private void Start()
-        {
-            global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
-        }
-
         public void AdvanceWave()
         {
-            TryTogglePhase();
             _spawnFinished = false;
             StartCoroutine(SpawnEnemiesDelayed());
             _waveIndex++;
         }
+        private void CheckWin()
+        {
+            int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
+            if (_waveIndex < _enemiesSpawning.Count || countActive > 0)
+            {
+                return;
+            }
+
+            global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
+            return;
+        }
 
         private IEnumerator SpawnEnemiesDelayed()
         {
-            if (_waveIndex > _enemiesSpawning.Count - 1)
-            {
-                global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
-                yield break;
-            }
-            
             foreach (SerializedTuple<EnemyId, int> enemySpawning in _enemiesSpawning[_waveIndex].List)
             {
                 _currentlySpawnedEnemyId = enemySpawning.V1;
@@ -143,20 +149,20 @@ namespace Runtime.Enemy
                 }
             }
             _spawnFinished = true;
+            global::GameEvents.OnEnemyReleased?.AddListener(TryTogglePhase);
         }
 
         private void TryTogglePhase(params int[] obj)
         {
-            if(!_spawnFinished)
-            {
-                return;
-            }
-            
             int countActive = _enemyPools.Sum(objectPool => objectPool.CountActive);
             if (countActive != 0)
             {
                 return;
             }
+            
+            OnWaveFinished?.Invoke();
+            CheckWin();
+
             global::GameEvents.OnTogglePhase.Invoke(Id.Ids.ToArray());
         }
     }
