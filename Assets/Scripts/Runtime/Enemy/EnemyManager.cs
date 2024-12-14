@@ -34,8 +34,6 @@ namespace Runtime.Enemy
 
         private void Awake()
         {
-            
-
             Assert.IsNotNull(_pathCreator, "pathCreator is null in EnemyManager");
             Assert.IsNotNull(_spawnPos, "Spawn position is null in EnemyManager");
             Assert.IsFalse(_enemiesSpawning.Count == 0, "There is no enemies to spawn in EnemyManager");

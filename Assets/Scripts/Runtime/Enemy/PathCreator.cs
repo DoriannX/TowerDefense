@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Runtime.Enemy
 {
-    [RequireComponent(typeof(LineRenderer))]
     [ExecuteAlways]
     public class PathCreator : MonoBehaviour
     {
@@ -15,9 +14,54 @@ namespace Runtime.Enemy
         [SerializeField] private int _maxIterations = 1000;
         [SerializeField] private float _tryingLength = 1;
         
-        [SerializeField] private List<Transform> _path;
+        private List<Transform> _path;
+
+        private List<Transform> GetPath
+        {
+            get
+            {
+                if (_path == null || _path.Count == 0 || _path.Any(t => t == null) || _path.Count != GetTransform.childCount)
+                {
+                    _path = new List<Transform>();
+                    
+                    if ((GetTransform.childCount <= 1 && GetLineRenderer != null) || GetTransform.childCount <= 0)
+                    {
+                        Debug.LogWarning("Path is empty in PathCreator");
+                    }
+                    
+                    List<Transform> children = GetTransform.GetComponentsInChildren<Transform>().ToList();
+                    Debug.Log("path is not ready");
+                    Debug.Log(children.Count);
+                    foreach (Transform child in children)
+                    {
+                        if (child == GetTransform || child == GetLineRenderer.transform)
+                        {
+                            continue;
+                        }
+
+                        _path.Add(child);
+                    }
+                }
+
+                return _path;
+            }
+        }
         private List<Vector3> _previousPath = new();
         private LineRenderer _lineRenderer;
+        private Transform _transform;
+
+        private Transform GetTransform
+        {
+            get
+            {
+                if (_transform == null)
+                {
+                    _transform = transform;
+                }
+
+                return _transform;
+            }
+        }
 
         private LineRenderer GetLineRenderer
         {
@@ -25,7 +69,7 @@ namespace Runtime.Enemy
             {
                 if (_lineRenderer == null)
                 {
-                    _lineRenderer = GetComponent<LineRenderer>();
+                    _lineRenderer = GetComponentInChildren<LineRenderer>();
                 }
 
                 return _lineRenderer;
@@ -39,7 +83,7 @@ namespace Runtime.Enemy
                 return;
             }
 
-            _previousPath = _path.Select(t => t.position).ToList();
+            _previousPath = GetPath.Select(t => t.position).ToList();
             ComputePositions();
         }
 
@@ -51,18 +95,14 @@ namespace Runtime.Enemy
 
         private bool PathChanged()
         {
-            if (_path.Count == 0)
-            {
-                return false;
-            }
-            if (_path.Count != _previousPath.Count)
+            if (GetPath.Count != _previousPath.Count)
             {
                 return true;
             }
 
-            for (int i = 0; i < _path.Count; i++)
+            for (int i = 0; i < GetPath.Count; i++)
             {
-                if (_path[i].position != _previousPath[i])
+                if (GetPath[i].position != _previousPath[i])
                 {
                     return true;
                 }
@@ -74,11 +114,15 @@ namespace Runtime.Enemy
         public void ComputePositions()
         {
             GetLineRenderer.positionCount = 0;
-            AddPos(_path[0].position);
-
-            for (int i = 1; i < _path.Count; i++)
+            if (GetPath.Count == 0)
             {
-                ConnectPoints(_path[i - 1].position, _path[i].position);
+                return;
+            }
+            AddPos(GetPath[0].position);
+
+            for (int i = 1; i < GetPath.Count; i++)
+            {
+                ConnectPoints(GetPath[i - 1].position, GetPath[i].position);
             }
         }
 

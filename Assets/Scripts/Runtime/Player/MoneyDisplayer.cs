@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Runtime.Player
 {
@@ -12,6 +13,7 @@ namespace Runtime.Player
 
         private void Awake()
         {
+            Assert.IsNotNull(_moneyManager, "moneyManager is null in MoneyDisplayer");
             _text = GetComponent<TextMeshProUGUI>();
         }
 
