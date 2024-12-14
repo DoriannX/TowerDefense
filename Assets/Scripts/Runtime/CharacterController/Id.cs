@@ -5,29 +5,6 @@ using UnityEngine;
 
 namespace Runtime.CharacterController
 {
-#if UNITY_EDITOR
-
-    [CustomEditor(typeof(Id))]
-    public class IdCustomEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            serializedObject.Update();
-
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("_isIdSerialized"));
-            SerializedProperty idProperty = serializedObject.FindProperty("_id");
-
-            if (serializedObject.FindProperty("_isIdSerialized").boolValue)
-            {
-                EditorGUILayout.PropertyField(idProperty);
-            }
-
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
-
-#endif
-
     public class Id : MonoBehaviour
     {
         [SerializeField] private bool _isIdSerialized;

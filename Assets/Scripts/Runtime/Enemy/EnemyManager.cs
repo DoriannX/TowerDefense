@@ -5,6 +5,7 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Runtime.CharacterController;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Pool;
 
 namespace Runtime.Enemy
@@ -17,7 +18,7 @@ namespace Runtime.Enemy
         [SerializeField] private int _waveIndex;
 
         [SerializeField] private Transform _spawnPos;
-        [SerializeField] private List<Transform> _path;
+        [SerializeField] private PathCreator _pathCreator;
         [SerializeField] private List<ListOfList<SerializedTuple<EnemyId, int>>> _enemiesSpawning;
 
         [Header("Prefabs")] [SerializeField] private SerializedDictionary<EnemyId, EnemyPrefab> _enemyPrefabs;
@@ -36,6 +37,7 @@ namespace Runtime.Enemy
 
         private void Awake()
         {
+            Assert.IsNotNull(_pathCreator, "pathCreator is null in EnemyManager");
             EnemyId[] enemyIds = (EnemyId[])Enum.GetValues(typeof(EnemyId));
 
             for (int i = 0; i < _enemyPrefabs.Count; i++)
@@ -139,7 +141,7 @@ namespace Runtime.Enemy
                     global::CharacterController enemy = _enemyPools[index].Get();
                     enemy.transform.position = _spawnPos.position;
                     BaseEnemy enemyController = _enemyControllerPools[index].Get();
-                    enemyController.Setup(enemy.transform, _path.Select(transform1 => transform1.position).ToList(),
+                    enemyController.Setup(enemy.transform, _pathCreator.GetPositions(),
                         enemy.GetComponent<Id>().GetId());
                     
                     //To not have the delay when it's the last one spawning
