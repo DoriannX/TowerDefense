@@ -115,6 +115,7 @@ namespace Runtime.Enemy
 
         public void AdvanceWave()
         {
+            global::GameEvents.OnTogglePhase.Invoke(Id.Ids.ToArray());
             _spawnFinished = false;
             StartCoroutine(SpawnEnemiesDelayed());
             _waveIndex++;
@@ -128,7 +129,6 @@ namespace Runtime.Enemy
             }
 
             global::GameEvents.OnWin?.Invoke(Id.Ids.ToArray());
-            return;
         }
 
         private IEnumerator SpawnEnemiesDelayed()
@@ -145,7 +145,10 @@ namespace Runtime.Enemy
                     BaseEnemy enemyController = _enemyControllerPools[index].Get();
                     enemyController.Setup(enemy.transform, _path.Select(transform1 => transform1.position).ToList(),
                         enemy.GetComponent<Id>().GetId());
-                    yield return new WaitForSeconds(_spawnDelay);
+                    if (i < enemySpawning.V2-1)
+                    {
+                        yield return new WaitForSeconds(_spawnDelay);
+                    }
                 }
             }
             _spawnFinished = true;
@@ -159,6 +162,8 @@ namespace Runtime.Enemy
             {
                 return;
             }
+            
+            global::GameEvents.OnEnemyReleased?.RemoveListener(TryTogglePhase);
             
             OnWaveFinished?.Invoke();
             CheckWin();
