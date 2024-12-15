@@ -687,6 +687,10 @@ PrefabInstance:
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<Enemy>k__BackingField
       value: 
+      objectReference: {fileID: 6338616053748489445, guid: 58075c975a9c49e40afb626d3d034693, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<EnemyController>k__BackingField
+      value: 
       objectReference: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
     - target: {fileID: 8617995544345869479, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: m_Name
