@@ -13,7 +13,7 @@ namespace Runtime.Enemy
 
         public override void InitDirection()
         {
-            SetDirection((Path[0] - _controlledTransform.position).normalized);
+            SetDirection((Path[1] - _controlledTransform.position).normalized);
         }
 
         public override void Setup(Transform controlledTransform, List<Vector3> path, params int[] ids)
@@ -38,19 +38,20 @@ namespace Runtime.Enemy
         {
             TraveledDistance += _controlledTransform.position - PreviousPos;
             PreviousPos = _controlledTransform.position;
-            
+
             if (CurrentTargetIndex >= Path.Count)
             {
                 global::GameEvents.OnEnemyReachedEnd?.Invoke(_damage, ControlledIds);
                 return;
             }
-            
+
             if (Vector3.Dot(Direction, _controlledTransform.forward) > 0)
             {
                 return;
             }
+
             CurrentTargetIndex++;
-            
+
             SetDirection(Direction);
         }
     }

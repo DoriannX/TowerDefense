@@ -200,12 +200,19 @@ namespace Runtime.Enemy
                 EnemyContainer enemy = _waves[_waveIndex].EnemiesOfWave[i];
                 for (int j = 0; j < enemy.Count; j++)
                 {
-                    //TODO: also spawn the controller
                     //TODO: (optional) make a single pool
+                    //TODO: dispawn enemies when killed or reached end
 
-                    Instantiate(enemy.Enemy, _pathCreator.GetPositions()[0], Quaternion.identity);
+                    global::CharacterController spawnedCharacter =
+                        Instantiate(enemy.Enemy, _pathCreator.GetPositions()[0], Quaternion.identity);
 
-                    if (i < _waves[_waveIndex].EnemiesOfWave.Count - 1)
+                    Enemy spawnedEnemy = Instantiate(enemy.EnemyController, _pathCreator.GetPositions()[0],
+                        Quaternion.identity);
+
+                    spawnedEnemy.Setup(spawnedCharacter.transform, _pathCreator.GetPositions(),
+                        spawnedCharacter.GetComponent<Id>().GetId());
+
+                    if (j < enemy.Count - 1)
                     {
                         yield return new WaitForSeconds(_spawnDelay);
                     }

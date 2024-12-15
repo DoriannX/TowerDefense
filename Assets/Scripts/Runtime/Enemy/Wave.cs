@@ -15,7 +15,8 @@ namespace Runtime.Enemy
     {
         //TODO: add the controllers
 
-        [field: SerializeField] public Enemy Enemy { get; private set; }
+        [field: SerializeField] public Enemy EnemyController { get; private set; }
+        [field: SerializeField] public global::CharacterController Enemy { get; private set; }
         [field: SerializeField] public int Count { get; private set; }
     }
 }
