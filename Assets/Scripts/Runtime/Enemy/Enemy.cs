@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Runtime.Enemy
 {
     public class Enemy : BaseEnemy
     {
+        public Action OnReachedEnd;
+
         protected override void SetDirection(Vector3 direction)
         {
             _controlledTransform.forward = direction;
@@ -41,7 +44,7 @@ namespace Runtime.Enemy
 
             if (CurrentTargetIndex >= Path.Count)
             {
-                global::GameEvents.OnEnemyReachedEnd?.Invoke(_damage, ControlledIds);
+                OnReachedEnd?.Invoke();
                 return;
             }
 

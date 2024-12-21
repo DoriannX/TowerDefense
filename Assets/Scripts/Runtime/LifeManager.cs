@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Runtime.CharacterController;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace Runtime
 {
     [RequireComponent(typeof(Id))]
-    public class LifeManager : MonoBehaviour, IShootable
+    public class LifeManager : MonoBehaviour, IDamageable, ILife
     {
         [Header("Properties")]
         [SerializeField] private float _maxLife;
@@ -19,11 +20,49 @@ namespace Runtime
         //Components
         private Id _id;
 
+        public float GetLife()
+        {
+            return _life;
+        }
+
+        public void SetLife(float life)
+        {
+            _life = life;
+        }
+
+        public void ApplyDamage(float damage)
+        {
+            if (GetLife() <= damage)
+            {
+                Die();
+                return;
+            }
+
+            SetLife(GetLife() - Mathf.Abs(damage));
+        }
+
+        public void Heal(float heal)
+        {
+            SetLife(GetLife() + Mathf.Abs(heal));
+        }
+
+        void ILife.Revive()
+        {
+            Revive();
+        }
+
         public void Revive()
         {
             //TODO: Revive
             //global::GameEvents.OnRevive?.Invoke(_id.GetId());
         }
+
+        void ILife.Die()
+        {
+            Die();
+        }
+
+        public Action OnDead { get; set; }
 
         private void Awake()
         {
@@ -32,7 +71,7 @@ namespace Runtime
 
         private void Start()
         {
-            _life = _maxLife;
+            SetLife(_maxLife);
             global::GameEvents.OnHit?.AddListener(TryHit);
         }
 
@@ -43,26 +82,17 @@ namespace Runtime
                 return;
             }
 
-            Hit(damage);
+            ApplyDamage(damage);
         }
 
         private void Die()
         {
-            global::GameEvents.OnDead?.Invoke(_id.GetId());
-            if (CurrentTeam == Team.Enemy)
-            {
-                global::GameEvents.OnEnemyKilled?.Invoke(_id.GetId());
-            }
+            OnDead?.Invoke();
         }
 
-        public void Hit(float damage)
+        public void SendDamage(float damage)
         {
-            _life -= damage;
-
-            if (_life <= 0)
-            {
-                Die();
-            }
+            ApplyDamage(damage);
         }
     }
 

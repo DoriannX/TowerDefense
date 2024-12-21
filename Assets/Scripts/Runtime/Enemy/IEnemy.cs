@@ -5,6 +5,7 @@ namespace Runtime.Enemy
 {
     public interface IEnemy
     {
+        ILife GetLife();
         protected void SetDirection(Vector3 direction);
 
         public void InitDirection();
@@ -12,5 +13,8 @@ namespace Runtime.Enemy
         public void Setup(Transform controlledTransform, List<Vector3> path, params int[] ids);
 
         protected void CheckIfReachedEnd();
+
+        float GetDamage();
+        int GetMoneyReward();
     }
 }

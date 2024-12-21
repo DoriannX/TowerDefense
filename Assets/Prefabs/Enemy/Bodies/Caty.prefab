@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLife: 100
+  <CurrentTeam>k__BackingField: 2
 --- !u!54 &-3767354570960041858
 Rigidbody:
   m_ObjectHideFlags: 0

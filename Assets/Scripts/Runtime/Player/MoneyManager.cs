@@ -1,5 +1,6 @@
 using System.Linq;
 using Runtime.CharacterController;
+using Runtime.Events;
 using UnityEngine;
 
 namespace Runtime.Player
@@ -18,7 +19,7 @@ namespace Runtime.Player
 
         private void Start()
         {
-            global::GameEvents.OnEnemyKilled?.AddListener(OnEnemyKilled);
+            EventManager.OnEnemyKilled += OnEnemyKilled;
         }
 
         public bool TryGetMoney(int amount)
@@ -27,12 +28,12 @@ namespace Runtime.Player
             {
                 return false;
             }
-            
+
             Money -= amount;
             return true;
         }
 
-        private void OnEnemyKilled(int moneyReward, int[] ids)
+        private void OnEnemyKilled(int moneyReward)
         {
             Money += moneyReward;
         }

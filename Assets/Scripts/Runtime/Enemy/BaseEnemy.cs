@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace Runtime.Enemy
 {
+    [RequireComponent(typeof(LifeManager))]
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
         [Header("Properties")] [SerializeField]
         protected float _damage;
+
         [SerializeField] private int _moneyReward;
 
         //Properties
@@ -36,25 +38,27 @@ namespace Runtime.Enemy
             }
         }
 
-        protected virtual void Start()
+        public virtual int GetMoneyReward()
         {
-            global::GameEvents.OnDead?.AddListener(OnEnemyDead);
+            return _moneyReward;
         }
 
-        protected virtual void OnEnemyDead(params int[] ids)
+        //Components
+        private LifeManager _lifeManager;
+
+        private void Awake()
         {
-            int[] intersectIds = ids.Intersect(ControlledIds).ToArray();
-            if (intersectIds.Length <= 0)
-            {
-                return;
-            }
-            
-            global::GameEvents.OnEnemyKilled?.Invoke(_moneyReward, intersectIds);
+            _lifeManager = GetComponent<LifeManager>();
         }
 
         protected virtual void Update()
         {
             CheckIfReachedEnd();
+        }
+
+        public ILife GetLife()
+        {
+            return _lifeManager;
         }
 
         void IEnemy.SetDirection(Vector3 direction)
@@ -72,6 +76,12 @@ namespace Runtime.Enemy
         {
             CheckIfReachedEnd();
         }
+
+        public float GetDamage()
+        {
+            return _damage;
+        }
+
 
         protected abstract void CheckIfReachedEnd();
     }

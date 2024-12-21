@@ -1,32 +1,41 @@
-using System.Linq;
-using Runtime.CharacterController;
+using System;
+using Runtime.Enemy;
+using Runtime.Events;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Runtime.Player
 {
+    [RequireComponent(typeof(ILife))]
     public class Player : MonoBehaviour
     {
-        private Id _id;
+        [SerializeField] private EnemyManager _enemyManager;
+        private ILife _life;
+
         private void Awake()
         {
-            _id = GetComponent<Id>();
+            _life = GetComponent<ILife>();
+            Assert.IsNotNull(_enemyManager, "Missing reference: _enemyManager");
         }
 
         private void Start()
         {
-            global::GameEvents.OnEnemyReachedEnd?.AddListener((damage, ids) =>
-            {
-                global::GameEvents.OnHit?.Invoke(damage, _id.GetId());
-            });
-            
-            global::GameEvents.OnDead?.AddListener(ids =>
+            _enemyManager.OnEnemyReachedEnd += (damage) => { _life.ApplyDamage(damage); };
+
+            _life.OnDead += () => { EventManager.OnLose?.Invoke(); };
+            /*global::GameEvents.OnDead?.AddListener(ids =>
             {
                 if (!ids.Contains(_id.GetId()))
                 {
                     return;
                 }
                 global::GameEvents.OnLose?.Invoke(_id.GetId());
-            });
+            });*/
+        }
+
+        public void SetEnemyManager(EnemyManager enemyManager)
+        {
+            _enemyManager = enemyManager;
         }
     }
 }
