@@ -6,6 +6,7 @@ namespace Runtime
     public interface ILife
     {
         public float GetLife();
+        float GetMaxLife();
         public void SetLife(float life);
 
         void ApplyDamage(float damage);

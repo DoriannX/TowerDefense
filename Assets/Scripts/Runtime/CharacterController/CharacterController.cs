@@ -3,7 +3,7 @@ using Runtime.CharacterController;
 using SerializedProperties;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController : MovableObject
 {
     //Serialized properties
     [SerializeField] private CharacterBodyProperties _characterBodyProperties;
@@ -125,9 +125,14 @@ public class CharacterController : MonoBehaviour
         _characterMovement.StopJump();
     }
 
-    public Vector3 GetVelocity()
+    public override Vector3 GetVelocity()
     {
-        return _characterMovement.Velocity;
+        return transform.InverseTransformDirection(_characterMovement.Velocity);
+    }
+
+    public override Quaternion GetDeltaRotation()
+    {
+        return Quaternion.identity;
     }
 
     private Vector3 CalculateCollidedMovement(Vector3 deltaMovement, Vector3 collidedGravity)
