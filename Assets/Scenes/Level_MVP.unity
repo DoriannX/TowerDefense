@@ -935,7 +935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: _waves.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: '_path.Array.data[0]'
@@ -990,15 +990,43 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[1].<EnemiesOfWave>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<Count>k__BackingField
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<Enemy>k__BackingField
       value: 
-      objectReference: {fileID: 6338616053748489445, guid: 58075c975a9c49e40afb626d3d034693, type: 3}
+      objectReference: {fileID: 6338616053748489445, guid: b31dc9f04ee6c124cb037f092c31f646, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[1].<Count>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[1].<Enemy>k__BackingField
+      value: 
+      objectReference: {fileID: 6338616053748489445, guid: b31dc9f04ee6c124cb037f092c31f646, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[1].<EnemiesOfWave>k__BackingField.Array.data[0].<Count>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[1].<EnemiesOfWave>k__BackingField.Array.data[0].<Enemy>k__BackingField
+      value: 
+      objectReference: {fileID: 6338616053748489445, guid: b31dc9f04ee6c124cb037f092c31f646, type: 3}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<EnemyController>k__BackingField
+      value: 
+      objectReference: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[1].<EnemyController>k__BackingField
+      value: 
+      objectReference: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[1].<EnemiesOfWave>k__BackingField.Array.data[0].<EnemyController>k__BackingField
       value: 
       objectReference: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
     - target: {fileID: 8617995544345869479, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
@@ -1188,6 +1216,7 @@ GameObject:
   - component: {fileID: 474227930}
   - component: {fileID: 474227933}
   - component: {fileID: 474227932}
+  - component: {fileID: 474227934}
   m_Layer: 5
   m_Name: Outline
   m_TagString: Untagged
@@ -1234,7 +1263,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $999
+  m_text: '$9999
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f0ddf1628be466498efa27483d8fb2b, type: 2}
   m_sharedMaterial: {fileID: 3841174347031379000, guid: 0f0ddf1628be466498efa27483d8fb2b, type: 2}
@@ -1313,6 +1344,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474227929}
   m_CullTransparentMesh: 1
+--- !u!114 &474227934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474227929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &487710140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,6 +2058,7 @@ GameObject:
   - component: {fileID: 715379561}
   - component: {fileID: 715379564}
   - component: {fileID: 715379563}
+  - component: {fileID: 715379565}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -2059,7 +2105,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $999
+  m_text: '$9999
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd161c2566ea9dd45972605265abfa9c, type: 2}
   m_sharedMaterial: {fileID: 3841174347031379000, guid: bd161c2566ea9dd45972605265abfa9c, type: 2}
@@ -2138,6 +2186,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715379560}
   m_CullTransparentMesh: 1
+--- !u!114 &715379565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715379560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &738325058
 GameObject:
   m_ObjectHideFlags: 0

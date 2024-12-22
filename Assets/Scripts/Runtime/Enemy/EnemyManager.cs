@@ -59,9 +59,9 @@ namespace Runtime.Enemy
                         ReleaseEnemy(spawnedEnemy, spawnedCharacter);
                         OnEnemyReachedEnd?.Invoke(spawnedEnemy.GetDamage());
                     };
-                    spawnedEnemy.GetLife().OnDead += () =>
+                    spawnedCharacter.GetComponent<LifeManager>().OnDead += () =>
                     {
-                        _aliveEnemies--;
+                        ReleaseEnemy(spawnedEnemy, spawnedCharacter);
                         EventManager.OnEnemyKilled.Invoke(spawnedEnemy.GetMoneyReward());
                     };
 

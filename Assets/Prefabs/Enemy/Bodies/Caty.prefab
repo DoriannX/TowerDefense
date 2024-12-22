@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7450477312022016172}
   - component: {fileID: 6338616053748489445}
   - component: {fileID: 7467012575472983208}
-  - component: {fileID: 2906221004677053788}
   - component: {fileID: -3767354570960041858}
+  - component: {fileID: 3316872104463951719}
   m_Layer: 6
   m_Name: Caty
   m_TagString: Untagged
@@ -145,7 +145,6 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 8
     <RaycastDistance>k__BackingField: 0.1
-  _characterData: {fileID: 11400000, guid: d3a86ca2824e4214499f9f719e2c2ef9, type: 2}
 --- !u!114 &7467012575472983208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,20 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isIdSerialized: 0
   _id: 1
---- !u!114 &2906221004677053788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5296415343605156716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee92f8d501874d30b81067c03cfe3db3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxLife: 100
-  <CurrentTeam>k__BackingField: 2
 --- !u!54 &-3767354570960041858
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -201,6 +187,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3316872104463951719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296415343605156716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee92f8d501874d30b81067c03cfe3db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLife: 100
+  <CurrentTeam>k__BackingField: 2
 --- !u!1 &8297411861940051413
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +444,6 @@ MonoBehaviour:
   _pivotTransform: {fileID: 3842581117428844127}
   _sensibilityX: 0.1
   _sensibilityY: 0.1
-  _characterData: {fileID: 11400000, guid: d3a86ca2824e4214499f9f719e2c2ef9, type: 2}
 --- !u!114 &5475410296714533383
 MonoBehaviour:
   m_ObjectHideFlags: 0

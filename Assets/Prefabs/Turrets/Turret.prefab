@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireRate: 5
   _damage: 1
-  <Cost>k__BackingField: 100
+  <Cost>k__BackingField: 1000
   _range: 10
   _rotateSpeed: 5
   _enemyLayer:

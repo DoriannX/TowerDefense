@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Runtime.Enemy
 {
-    [RequireComponent(typeof(LifeManager))]
     public abstract class BaseEnemy : MonoBehaviour, IEnemy
     {
         [Header("Properties")] [SerializeField]
@@ -43,22 +42,9 @@ namespace Runtime.Enemy
             return _moneyReward;
         }
 
-        //Components
-        private LifeManager _lifeManager;
-
-        private void Awake()
-        {
-            _lifeManager = GetComponent<LifeManager>();
-        }
-
         protected virtual void Update()
         {
             CheckIfReachedEnd();
-        }
-
-        public ILife GetLife()
-        {
-            return _lifeManager;
         }
 
         void IEnemy.SetDirection(Vector3 direction)

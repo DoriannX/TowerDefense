@@ -5,7 +5,6 @@ namespace Runtime.Enemy
 {
     public interface IEnemy
     {
-        ILife GetLife();
         protected void SetDirection(Vector3 direction);
 
         public void InitDirection();
