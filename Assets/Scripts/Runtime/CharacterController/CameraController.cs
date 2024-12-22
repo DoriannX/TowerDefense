@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(Camera))]
-public class CameraController : MonoBehaviour
+public class CameraController : MovableObject
 {
     [Header("Components")] [SerializeField]
     private Transform _pivotTransform;
 
-    [Header("Properties")] 
+    [Header("Properties")]
     [SerializeField] [Range(0, 2)] private float _sensibilityX;
-    [SerializeField] [Range(0, 2)] private float _sensibilityY;
 
-    [Header("Events")] [SerializeField] private CharacterData _characterData;
+    [SerializeField] [Range(0, 2)] private float _sensibilityY;
 
     //Components
     private Id _id;
@@ -23,7 +22,8 @@ public class CameraController : MonoBehaviour
     //Properties
     private float _pivotXRot;
     private bool _focused;
-        
+    private Vector3 _lastDeltaRotation;
+
 
     private void Awake()
     {
@@ -31,15 +31,9 @@ public class CameraController : MonoBehaviour
         _id = GetComponentInParent<Id>();
         _camera = GetComponent<Camera>();
         _camera.enabled = false;
-            
-        if (_characterData is null)
-        {
-            Assert.IsNull(_characterData, "character data is null");
-            return;
-        }
 
-        _characterData.OnLookPerformed.AddListener(SetLookDeltaValue);
-        _characterData.OnPossess.AddListener(OnPossess);
+        GameEvents.OnLookPerformed.AddListener(SetLookDeltaValue);
+        GameEvents.OnPossess.AddListener(OnPossess);
         GameEvents.OnToggleFocusCamera?.AddListener(OnToggleFocusCamera);
         _focused = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -52,10 +46,10 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
+
         _focused = !_focused;
         Cursor.visible = !_focused;
         Cursor.lockState = _focused ? CursorLockMode.Locked : CursorLockMode.None;
-        
     }
 
     private void OnPossess(int[] obj)
@@ -64,7 +58,7 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
-            
+
         //To disable the camera of the non-possessed characters
         _camera.enabled = true;
     }
@@ -75,6 +69,8 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
+
+        _lastDeltaRotation = lookDeltaValue;
 
         RotatePivot(lookDeltaValue.x * _sensibilityX);
         RotateCamera(lookDeltaValue.y * _sensibilityY);
@@ -91,5 +87,15 @@ public class CameraController : MonoBehaviour
     private void RotatePivot(float x)
     {
         _pivotTransform.Rotate(0, x, 0);
+    }
+
+    public override Vector3 GetVelocity()
+    {
+        return Vector3.zero;
+    }
+
+    public override Quaternion GetDeltaRotation()
+    {
+        return Quaternion.Euler(_lastDeltaRotation.y, _lastDeltaRotation.x, 0);
     }
 }

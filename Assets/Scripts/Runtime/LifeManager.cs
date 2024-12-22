@@ -25,6 +25,11 @@ namespace Runtime
             return _life;
         }
 
+        public float GetMaxLife()
+        {
+            return _maxLife;
+        }
+
         public void SetLife(float life)
         {
             _life = life;
