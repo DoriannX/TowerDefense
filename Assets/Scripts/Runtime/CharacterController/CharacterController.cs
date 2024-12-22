@@ -138,20 +138,28 @@ public class CharacterController : MovableObject
     private Vector3 CalculateCollidedMovement(Vector3 deltaMovement, Vector3 collidedGravity)
     {
         //To calculate collisions
-        Vector3 collidedMovement =
-            _characterCollisionDetection.CollideAndSlide(deltaMovement,
-                _characterBodyProperties.Transform.position + collidedGravity * Time.deltaTime, false, 0) /
-            Time.deltaTime;
+        Vector3 collidedMovement = Vector3.zero;
+        if (Time.deltaTime > 0)
+        {
+            collidedMovement = _characterCollisionDetection.CollideAndSlide(deltaMovement,
+                                   _characterBodyProperties.Transform.position + collidedGravity * Time.deltaTime,
+                                   false, 0) /
+                               Time.deltaTime;
+        }
 
         //To calculate slopes
         Vector3 downSlopeMovement =
             _characterCollisionDetection.TrySlideDownSlope(collidedMovement, _characterGroundChecker.IsGrounded());
 
         //To then calculate again collisions
-        collidedMovement = _characterCollisionDetection.CollideAndSlide(downSlopeMovement * Time.deltaTime,
-                               _characterBodyProperties.Transform.position + collidedGravity * Time.deltaTime,
-                               false, 0) /
-                           Time.deltaTime;
+        if (Time.deltaTime > 0)
+        {
+            collidedMovement = _characterCollisionDetection.CollideAndSlide(downSlopeMovement * Time.deltaTime,
+                                   _characterBodyProperties.Transform.position + collidedGravity * Time.deltaTime,
+                                   false, 0) /
+                               Time.deltaTime;
+        }
+
         return collidedMovement;
     }
 
@@ -163,10 +171,13 @@ public class CharacterController : MovableObject
                                  (_characterBodyProperties.Mass * Time.deltaTime);
 
         //To calculate collisions
-        Vector3 collidedGravity =
-            _characterCollisionDetection.CollideAndSlide(currentGravity * Time.deltaTime,
+        Vector3 collidedGravity = Vector3.zero;
+        if (Time.deltaTime > 0)
+        {
+            collidedGravity = _characterCollisionDetection.CollideAndSlide(currentGravity * Time.deltaTime,
                 _characterBodyProperties.Transform.position, true,
                 0) / Time.deltaTime;
+        }
         return collidedGravity;
     }
 }

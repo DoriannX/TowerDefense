@@ -65,7 +65,7 @@ public class CameraController : MovableObject
 
     private void SetLookDeltaValue(Vector2 lookDeltaValue, params int[] id)
     {
-        if (!id.Contains(_id.GetId()) || !_focused)
+        if (!id.Contains(_id.GetId()) || !_focused || Time.deltaTime == 0)
         {
             return;
         }
