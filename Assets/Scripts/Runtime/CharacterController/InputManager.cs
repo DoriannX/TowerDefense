@@ -1,10 +1,10 @@
 using System;
+using Runtime.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private CharacterData _serializedCharacterData;
     [SerializeField] private int[] _ids;
         
     //Values
@@ -33,31 +33,55 @@ public class InputManager : MonoBehaviour
     private Action<int[]> _onToggleFocusCamera;
     //change mode
     private Action<int[]> _onToggleMode;
+    //pause
+    private Action _onPause;
         
     private bool _isSprinting;
 
-    private void SetupCharacter(CharacterData characterData)
+    private void SetupCharacter()
     {
-        _onMovePerformed += characterData.OnMovePerformed.Invoke;
-        _onMoveCanceled += characterData.OnMoveCanceled.Invoke;
-        _onMoveCanceled += characterData.OnMoveCanceled.Invoke;
-        _onJumpStarted += characterData.OnJumpStarted.Invoke;
-        _onJumpCanceled += characterData.OnJumpCanceled.Invoke;
-        _onSprintStarted += characterData.OnSprintStarted.Invoke;
-        _onSprintCanceled += characterData.OnSprintCanceled.Invoke;
-        _onLookPerformed += characterData.OnLookPerformed.Invoke;
-        _onLookCanceled += characterData.OnLookCanceled.Invoke;
-        _onShootStarted += characterData.OnShootStarted.Invoke;
-        _onShootCanceled += characterData.OnShootCanceled.Invoke;
-        _onPossess += characterData.OnPossess.Invoke;
+        Debug.Log("setup character");
+        _onMovePerformed += GameEvents.OnMovePerformed.Invoke;
+        _onMoveCanceled += GameEvents.OnMoveCanceled.Invoke;
+        _onMoveCanceled += GameEvents.OnMoveCanceled.Invoke;
+        _onJumpStarted += GameEvents.OnJumpStarted.Invoke;
+        _onJumpCanceled += GameEvents.OnJumpCanceled.Invoke;
+        _onSprintStarted += GameEvents.OnSprintStarted.Invoke;
+        _onSprintCanceled += GameEvents.OnSprintCanceled.Invoke;
+        _onLookPerformed += GameEvents.OnLookPerformed.Invoke;
+        _onLookCanceled += GameEvents.OnLookCanceled.Invoke;
+        _onShootStarted += GameEvents.OnShootStarted.Invoke;
+        _onShootCanceled += GameEvents.OnShootCanceled.Invoke;
+        _onPossess += GameEvents.OnPossess.Invoke;
         _onToggleMode += GameEvents.OnToggleMode.Invoke;
         _onToggleFocusCamera += GameEvents.OnToggleFocusCamera.Invoke;
+        _onPause += EventManager.OnPause.Invoke;
     }
 
     private void Start()
     {
-        SetupCharacter(_serializedCharacterData);
+        SetupCharacter();
         _onPossess?.Invoke(_ids);
+        EventManager.OnEnd += DisableInputs;
+    }
+
+    private void DisableInputs()
+    {
+        _onMovePerformed -= GameEvents.OnMovePerformed.Invoke;
+        _onMoveCanceled -= GameEvents.OnMoveCanceled.Invoke;
+        _onMoveCanceled -= GameEvents.OnMoveCanceled.Invoke;
+        _onJumpStarted -= GameEvents.OnJumpStarted.Invoke;
+        _onJumpCanceled -= GameEvents.OnJumpCanceled.Invoke;
+        _onSprintStarted -= GameEvents.OnSprintStarted.Invoke;
+        _onSprintCanceled -= GameEvents.OnSprintCanceled.Invoke;
+        _onLookPerformed -= GameEvents.OnLookPerformed.Invoke;
+        _onLookCanceled -= GameEvents.OnLookCanceled.Invoke;
+        _onShootStarted -= GameEvents.OnShootStarted.Invoke;
+        _onShootCanceled -= GameEvents.OnShootCanceled.Invoke;
+        _onPossess -= GameEvents.OnPossess.Invoke;
+        _onToggleMode -= GameEvents.OnToggleMode.Invoke;
+        _onToggleFocusCamera -= GameEvents.OnToggleFocusCamera.Invoke;
+        _onPause -= EventManager.OnPause.Invoke;
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -147,6 +171,15 @@ public class InputManager : MonoBehaviour
         if(ctx.started)
         {
             _onToggleMode?.Invoke( _ids);
+        }
+    }
+    
+    public void OnPause(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started)
+        {
+            _onPause?.Invoke();
+            
         }
     }
 }
