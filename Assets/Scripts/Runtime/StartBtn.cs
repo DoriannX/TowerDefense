@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 namespace Runtime
 {
     [RequireComponent(typeof(Collider))]
-    public class StartBtn : MonoBehaviour, IShootable
+    public class StartBtn : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyManager _enemyManager;
 
@@ -24,7 +24,7 @@ namespace Runtime
             Toggle(true);
         }
 
-        public void Hit(float damage)
+        public void SendDamage(float damage)
         {
             _enemyManager.AdvanceWave();
             Toggle(false);

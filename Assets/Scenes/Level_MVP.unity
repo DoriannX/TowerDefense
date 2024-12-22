@@ -625,6 +625,10 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: '_path.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
@@ -672,6 +676,22 @@ PrefabInstance:
       propertyPath: '_path.Array.data[11]'
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<Count>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<Enemy>k__BackingField
+      value: 
+      objectReference: {fileID: 6338616053748489445, guid: 58075c975a9c49e40afb626d3d034693, type: 3}
+    - target: {fileID: 5653136308076274600, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
+      propertyPath: _waves.Array.data[0].<EnemiesOfWave>k__BackingField.Array.data[0].<EnemyController>k__BackingField
+      value: 
+      objectReference: {fileID: 954845003227333026, guid: e9f4a193fe719244b9dfac270a38b2a3, type: 3}
     - target: {fileID: 8617995544345869479, guid: 7f7d116a61b6f244c820236f73e474e8, type: 3}
       propertyPath: m_Name
       value: EnemyManager
@@ -915,6 +935,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 1136060529092979448, guid: d044330ff4c8f8f49b150ba7dcf57c5d, type: 3}
+      propertyPath: _enemyManager
+      value: 
+      objectReference: {fileID: 405305547}
     - target: {fileID: 7228414538584933333, guid: d044330ff4c8f8f49b150ba7dcf57c5d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

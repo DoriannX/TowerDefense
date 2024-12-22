@@ -15,12 +15,6 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 27d4f534b8c6d72438ff8373b8998c93
   m_SerializeEntries:
-  - m_GUID: 019884952315e154b804c40c146f7558
-    m_Address: OnEnemyReleased
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameEvents
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0bacfa6bd5ad0db468b143049081e3b7
     m_Address: OnShootStarted
     m_ReadOnly: 0
@@ -41,12 +35,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2f7b78af3a76d5c4bad4945d912c1dd5
     m_Address: OnTogglePhase
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameEvents
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 39f689b4d9578c042bb40086efadc0f6
-    m_Address: OnEnemyKilled
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents
@@ -125,12 +113,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cd1341882157abb4db0a6dec270e34a9
     m_Address: OnHit
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameEvents
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cfeb2f9ff8a2b084f9bdef20c865fc3c
-    m_Address: OnEnemyReachedEnd
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameEvents

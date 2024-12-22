@@ -1,4 +1,5 @@
 using System;
+using Runtime.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,11 @@ namespace Runtime
     public class EndMenuManager : MonoBehaviour
     {
         [SerializeField] private GameObject _buttons;
-        
+
         private void Start()
         {
-            global::GameEvents.OnWin?.AddListener(Win);
-            global::GameEvents.OnLose?.AddListener(Lose);
+            EventManager.OnWin += Win;
+            EventManager.OnLose += Lose;
         }
 
         public void Restart()
@@ -20,14 +21,16 @@ namespace Runtime
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        private void Win(int[] id)
+        private void Win()
         {
+            Debug.Log("Win");
             Time.timeScale = 0.0001f;
             _buttons.SetActive(true);
         }
-        
-        private void Lose(int[] id)
+
+        private void Lose()
         {
+            Debug.Log("Lose");
             Time.timeScale = 0.0001f;
             _buttons.SetActive(true);
         }

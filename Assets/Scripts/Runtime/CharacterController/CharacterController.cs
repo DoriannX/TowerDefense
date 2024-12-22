@@ -11,9 +11,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private CharacterMovementProperties _characterMovementProperties;
     [SerializeField] private CharacterGroundProperties _characterGroundProperties;
 
-    [Header("Character data")] [SerializeField]
-    private CharacterData _characterData;
-
     //Components
     private CharacterMovement _characterMovement;
     private CharacterCollisionDetection _characterCollisionDetection;
@@ -29,7 +26,7 @@ public class CharacterController : MonoBehaviour
     private void Start()
     {
         InitEvents();
-        _characterData.OnCreated?.Invoke(_id.GetId());
+        GameEvents.OnCreated?.Invoke(_id.GetId());
     }
 
     private void Update()
@@ -45,11 +42,6 @@ public class CharacterController : MonoBehaviour
             _characterBodyProperties.Transform.position + collidedMovement * Time.deltaTime +
             collidedGravity * Time.deltaTime, false, 0);
         _characterMovement.MoveAndApplyVel(collidedGravity, collidedMovement, collapsePushForce);
-    }
-
-    private void OnDestroy()
-    {
-        _characterData.RemoveAllListeners();
     }
 
     private void InitComponents()
@@ -71,12 +63,12 @@ public class CharacterController : MonoBehaviour
 
     private void InitEvents()
     {
-        _characterData.OnMovePerformed.AddListener(TrySetMoveAmount);
-        _characterData.OnMoveCanceled.AddListener(TrySetMoveAmount);
-        _characterData.OnJumpStarted.AddListener(TryStartJump);
-        _characterData.OnJumpCanceled.AddListener(TryStopJump);
-        _characterData.OnSprintStarted.AddListener(TryStartSprint);
-        _characterData.OnSprintCanceled.AddListener(TryStopSprint);
+        GameEvents.OnMovePerformed.AddListener(TrySetMoveAmount);
+        GameEvents.OnMoveCanceled.AddListener(TrySetMoveAmount);
+        GameEvents.OnJumpStarted.AddListener(TryStartJump);
+        GameEvents.OnJumpCanceled.AddListener(TryStopJump);
+        GameEvents.OnSprintStarted.AddListener(TryStartSprint);
+        GameEvents.OnSprintCanceled.AddListener(TryStopSprint);
     }
 
     private void TrySetMoveAmount(Vector3 moveAmount, params int[] ids)
@@ -132,7 +124,7 @@ public class CharacterController : MonoBehaviour
 
         _characterMovement.StopJump();
     }
-    
+
     public Vector3 GetVelocity()
     {
         return _characterMovement.Velocity;
