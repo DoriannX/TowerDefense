@@ -1182,7 +1182,8 @@ GameObject:
   - component: {fileID: 105444933}
   - component: {fileID: 105444932}
   - component: {fileID: 105444931}
-  m_Layer: 0
+  - component: {fileID: 105444934}
+  m_Layer: 3
   m_Name: Dalle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,6 +1258,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &105444934
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105444930}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8137615028424289647, guid: 45389821da5174140bb8bf5021a1ae36, type: 3}
 --- !u!1 &116815474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,7 +3109,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bf7fb3edd738cf41b78d8c23b278d5b, type: 2}
+  - {fileID: 2100000, guid: 60ced5ff19fc9f64f8db2c1f94269910, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4582,7 +4605,8 @@ GameObject:
   - component: {fileID: 457700039}
   - component: {fileID: 457700038}
   - component: {fileID: 457700037}
-  m_Layer: 0
+  - component: {fileID: 457700040}
+  m_Layer: 3
   m_Name: Dalle_002 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4657,6 +4681,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &457700040
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457700036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1365940402436673136, guid: 409a1aeff91a6ef45946e9fc70376a82, type: 3}
 --- !u!1 &466505996
 GameObject:
   m_ObjectHideFlags: 0
@@ -9583,7 +9629,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 13b8c3e98b209d94d81dc311d0bda39b, type: 2}
+  - {fileID: 2100000, guid: 07edbb4e726ad464ab85b94636c64c28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11968,113 +12014,6 @@ Transform:
   - {fileID: 1074417699}
   m_Father: {fileID: 1814912737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1392914011
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1392914013}
-  - component: {fileID: 1392914012}
-  - component: {fileID: 1392914014}
-  m_Layer: 0
-  m_Name: Custom Pass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1392914012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392914011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  fadeRadius: 0
-  priority: 0
-  customPasses:
-  - rid: 3908645712965927211
-  injectionPoint: 2
-  m_TargetCamera: {fileID: 1076834003}
-  useTargetCamera: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: 3908645712965927211
-      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
-      data:
-        m_Name: Custom Pass
-        enabled: 1
-        targetColorBuffer: 0
-        targetDepthBuffer: 0
-        clearFlags: 3
-        passFoldout: 0
-        m_Version: 0
-        fullscreenPassMaterial: {fileID: 2100000, guid: 052086ca5a5265e4ebbd049aab1deb8e, type: 2}
-        materialPassIndex: 0
-        materialPassName: DrawProcedural
-        fetchColorBuffer: 0
---- !u!4 &1392914013
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392914011}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1392914014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392914011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  fadeRadius: 0
-  priority: 0
-  customPasses:
-  - rid: 3908645733670846465
-  injectionPoint: 2
-  m_TargetCamera: {fileID: 128632167}
-  useTargetCamera: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: 3908645733670846465
-      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
-      data:
-        m_Name: Custom Pass
-        enabled: 1
-        targetColorBuffer: 0
-        targetDepthBuffer: 0
-        clearFlags: 0
-        passFoldout: 0
-        m_Version: 0
-        fullscreenPassMaterial: {fileID: 2100000, guid: aa7cd666a63a09349b09562100e3ae2c, type: 2}
-        materialPassIndex: 0
-        materialPassName: Custom Pass 0
-        fetchColorBuffer: 0
 --- !u!1 &1403364505
 GameObject:
   m_ObjectHideFlags: 0
@@ -13376,7 +13315,8 @@ GameObject:
   - component: {fileID: 1532042667}
   - component: {fileID: 1532042666}
   - component: {fileID: 1532042665}
-  m_Layer: 0
+  - component: {fileID: 1532042668}
+  m_Layer: 3
   m_Name: Dalle_002 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13451,6 +13391,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1532042668
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532042664}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1365940402436673136, guid: 409a1aeff91a6ef45946e9fc70376a82, type: 3}
 --- !u!1 &1533280013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13812,7 +13774,8 @@ GameObject:
   - component: {fileID: 1640446139}
   - component: {fileID: 1640446138}
   - component: {fileID: 1640446137}
-  m_Layer: 0
+  - component: {fileID: 1640446140}
+  m_Layer: 3
   m_Name: Dalle_001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13887,6 +13850,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1640446140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640446136}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7735063393348835354, guid: fe793a2b208e8a1408a1e97b3c70b23c, type: 3}
 --- !u!1 &1645898277
 GameObject:
   m_ObjectHideFlags: 0
@@ -14559,7 +14544,8 @@ GameObject:
   - component: {fileID: 1719399494}
   - component: {fileID: 1719399493}
   - component: {fileID: 1719399492}
-  m_Layer: 0
+  - component: {fileID: 1719399495}
+  m_Layer: 3
   m_Name: Dalle_002 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14634,6 +14620,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1719399495
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719399491}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1365940402436673136, guid: 409a1aeff91a6ef45946e9fc70376a82, type: 3}
 --- !u!1 &1726749531
 GameObject:
   m_ObjectHideFlags: 0
@@ -18567,7 +18575,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cf03631c5787e54ca078e95ea707735, type: 2}
+  - {fileID: 2100000, guid: fa265f5aa93e78b449e08bebe91a80bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19428,7 +19436,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cf03631c5787e54ca078e95ea707735, type: 2}
+  - {fileID: 2100000, guid: fa265f5aa93e78b449e08bebe91a80bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22925,13 +22933,36 @@ GameObject:
   - component: {fileID: 3961828326814516406}
   - component: {fileID: 95954698234956563}
   - component: {fileID: 2787746877360308185}
-  m_Layer: 0
+  - component: {fileID: 4445313914593107469}
+  m_Layer: 3
   m_Name: Dalle_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &4445313914593107469
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445313914593107468}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1365940402436673136, guid: 409a1aeff91a6ef45946e9fc70376a82, type: 3}
 --- !u!4 &4473818823274161841
 Transform:
   m_ObjectHideFlags: 0
@@ -23366,7 +23397,8 @@ GameObject:
   - component: {fileID: 5629576569496453604}
   - component: {fileID: 8759392996605939265}
   - component: {fileID: 6803649088637975179}
-  m_Layer: 0
+  - component: {fileID: 8759392996605939266}
+  m_Layer: 3
   m_Name: Dalle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24369,7 +24401,8 @@ GameObject:
   - component: {fileID: 6744669308447826004}
   - component: {fileID: 7653369028782338033}
   - component: {fileID: 5607770835061103419}
-  m_Layer: 0
+  - component: {fileID: 7653369028782338034}
+  m_Layer: 3
   m_Name: Dalle_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25770,6 +25803,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6256117450584324846}
   m_Mesh: {fileID: 7735063393348835354, guid: fe793a2b208e8a1408a1e97b3c70b23c, type: 3}
+--- !u!64 &7653369028782338034
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256117450584324846}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7735063393348835354, guid: fe793a2b208e8a1408a1e97b3c70b23c, type: 3}
 --- !u!137 &7688742937570407564
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -25917,7 +25972,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4cf03631c5787e54ca078e95ea707735, type: 2}
+  - {fileID: 2100000, guid: fa265f5aa93e78b449e08bebe91a80bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26138,7 +26193,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07edbb4e726ad464ab85b94636c64c28, type: 2}
+  - {fileID: 2100000, guid: 6728596690622a84daed3bcd995c779f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26921,6 +26976,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5002257548376709982}
   m_Mesh: {fileID: -8137615028424289647, guid: 45389821da5174140bb8bf5021a1ae36, type: 3}
+--- !u!64 &8759392996605939266
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002257548376709982}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8137615028424289647, guid: 45389821da5174140bb8bf5021a1ae36, type: 3}
 --- !u!137 &8777326001192123195
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -27454,7 +27531,6 @@ SceneRoots:
   - {fileID: 2938211428517524491}
   - {fileID: 327213428}
   - {fileID: 5982282074266347327}
-  - {fileID: 1392914013}
   - {fileID: 649544738}
   - {fileID: 1057094848}
   - {fileID: 263110614}
