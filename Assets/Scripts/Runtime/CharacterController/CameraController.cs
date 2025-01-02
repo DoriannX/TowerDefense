@@ -1,101 +1,104 @@
+#region
+
 using System.Linq;
-using Runtime.CharacterController;
 using UnityEngine;
-using UnityEngine.Assertions;
 
-[RequireComponent(typeof(Camera))]
-public class CameraController : MovableObject
+#endregion
+
+namespace Runtime.CharacterController
 {
-    [Header("Components")] [SerializeField]
-    private Transform _pivotTransform;
-
-    [Header("Properties")]
-    [SerializeField] [Range(0, 2)] private float _sensibilityX;
-
-    [SerializeField] [Range(0, 2)] private float _sensibilityY;
-
-    //Components
-    private Id _id;
-    private Transform _transform;
-    private Camera _camera;
-
-    //Properties
-    private float _pivotXRot;
-    private bool _focused;
-    private Vector3 _lastDeltaRotation;
-
-
-    private void Awake()
+    public class CameraController : MovableObject
     {
-        _transform = transform;
-        _id = GetComponentInParent<Id>();
-        _camera = GetComponent<Camera>();
-        _camera.enabled = false;
+        [Header("Components")] [SerializeField]
+        private Transform _pivotTransform;
 
-        GameEvents.OnLookPerformed.AddListener(SetLookDeltaValue);
-        GameEvents.OnPossess.AddListener(OnPossess);
-        GameEvents.OnToggleFocusCamera?.AddListener(OnToggleFocusCamera);
-        _focused = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+        [SerializeField] private Camera _playerCamera;
 
-    private void OnToggleFocusCamera(int[] ids)
-    {
-        if (!ids.Contains(_id.GetId()))
+        [Header("Properties")]
+        [SerializeField] [Range(0, 2)] private float _sensibilityX;
+
+        [SerializeField] [Range(0, 2)] private float _sensibilityY;
+        private bool _focused;
+
+        //Components
+        private Id _id;
+        private Vector3 _lastDeltaRotation;
+
+        //Properties
+        private float _pivotXRot;
+        private Transform _transform;
+
+
+        private void Awake()
         {
-            return;
+            _transform = transform;
+            _id = GetComponentInParent<Id>();
+
+            global::GameEvents.OnLookPerformed.AddListener(SetLookDeltaValue);
+            global::GameEvents.OnPossess.AddListener(OnPossess);
+            global::GameEvents.OnToggleFocusCamera?.AddListener(OnToggleFocusCamera);
+            _focused = true;
+            _playerCamera.enabled = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
-        _focused = !_focused;
-        Cursor.visible = !_focused;
-        Cursor.lockState = _focused ? CursorLockMode.Locked : CursorLockMode.None;
-    }
-
-    private void OnPossess(int[] obj)
-    {
-        if (!obj.Contains(_id.GetId()))
+        private void OnToggleFocusCamera(int[] ids)
         {
-            return;
+            if (!ids.Contains(_id.GetId()))
+            {
+                return;
+            }
+
+            _focused = !_focused;
+            Cursor.visible = !_focused;
+            Cursor.lockState = _focused ? CursorLockMode.Locked : CursorLockMode.None;
         }
 
-        //To disable the camera of the non-possessed characters
-        _camera.enabled = true;
-    }
-
-    private void SetLookDeltaValue(Vector2 lookDeltaValue, params int[] id)
-    {
-        if (!id.Contains(_id.GetId()) || !_focused || Time.deltaTime == 0)
+        private void OnPossess(int[] obj)
         {
-            return;
+            if (!obj.Contains(_id.GetId()))
+            {
+                return;
+            }
+
+            _playerCamera.enabled = true;
         }
 
-        _lastDeltaRotation = lookDeltaValue;
+        private void SetLookDeltaValue(Vector2 lookDeltaValue, params int[] id)
+        {
+            if (!id.Contains(_id.GetId()) || !_focused || Time.deltaTime == 0)
+            {
+                return;
+            }
 
-        RotatePivot(lookDeltaValue.x * _sensibilityX);
-        RotateCamera(lookDeltaValue.y * _sensibilityY);
-    }
+            _lastDeltaRotation = lookDeltaValue;
+
+            RotatePivot(lookDeltaValue.x * _sensibilityX);
+            RotateCamera(lookDeltaValue.y * _sensibilityY);
+        }
 
 
-    private void RotateCamera(float y)
-    {
-        _pivotXRot -= y;
-        _pivotXRot = Mathf.Clamp(_pivotXRot, -90, 90);
-        _transform.localEulerAngles = Vector3.right * _pivotXRot;
-    }
+        private void RotateCamera(float y)
+        {
+            _pivotXRot -= y;
+            _pivotXRot = Mathf.Clamp(_pivotXRot, -90, 90);
+            _pivotTransform.localEulerAngles = Vector3.right * _pivotXRot;
+        }
 
-    private void RotatePivot(float x)
-    {
-        _pivotTransform.Rotate(0, x, 0);
-    }
+        private void RotatePivot(float x)
+        {
+            _transform.Rotate(0, x, 0);
+        }
 
-    public override Vector3 GetVelocity()
-    {
-        return Vector3.zero;
-    }
+        public override Vector3 GetVelocity()
+        {
+            return Vector3.zero;
+        }
 
-    public override Quaternion GetDeltaRotation()
-    {
-        return Quaternion.Euler(_lastDeltaRotation.y, _lastDeltaRotation.x, 0);
+        public override Quaternion GetDeltaRotation()
+        {
+            return Quaternion.Euler(_lastDeltaRotation.y, _lastDeltaRotation.x, 0);
+        }
     }
 }
