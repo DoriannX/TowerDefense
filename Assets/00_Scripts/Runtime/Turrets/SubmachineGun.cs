@@ -22,15 +22,7 @@ namespace _00_Scripts.Runtime.Turrets
 
         //Properties
         private readonly Collider[] _hitColliders = new Collider[20];
-        private CustomCharacterController _currentClosestEnemy;
         private Collider _currentNearestCollider;
-        private Quaternion _defaultRot;
-
-        protected override void Start()
-        {
-            base.Start();
-            _defaultRot = _head.rotation;
-        }
 
         protected override void Update()
         {
@@ -46,7 +38,7 @@ namespace _00_Scripts.Runtime.Turrets
 
         protected override void TryAim()
         {
-            CustomCharacterController nearest = TryGetNearestEnemyInRange();
+            GameObject nearest = TryGetNearestEnemyInRange();
 
             if (nearest != null && Enabled)
             {
@@ -54,7 +46,7 @@ namespace _00_Scripts.Runtime.Turrets
             }
         }
 
-        protected override void Aim(CustomCharacterController target)
+        protected override void Aim(GameObject target)
         {
             Vector3 direction = (target.transform.position - Transform.position).normalized;
             /*_head.transform
@@ -66,7 +58,7 @@ namespace _00_Scripts.Runtime.Turrets
             TryShoot(target);
         }
 
-        protected override CustomCharacterController TryGetNearestEnemyInRange()
+        protected override GameObject TryGetNearestEnemyInRange()
         {
             int hitCount = Physics.OverlapSphereNonAlloc(Transform.position, _range, _hitColliders, _enemyLayer);
             if (hitCount <= 0)
@@ -88,15 +80,12 @@ namespace _00_Scripts.Runtime.Turrets
 
             if (_currentNearestCollider == nearestCollider)
             {
-                return _currentClosestEnemy;
+                return _currentNearestCollider.gameObject;
             }
 
             _currentNearestCollider = nearestCollider;
-            _currentClosestEnemy =
-                nearestCollider.GetComponentInChildren<CustomCharacterController>();
-            Debug.Log(_currentClosestEnemy);
 
-            return _currentClosestEnemy;
+            return _currentNearestCollider.gameObject;
         }
     }
 }

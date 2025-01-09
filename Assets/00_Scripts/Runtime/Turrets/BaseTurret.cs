@@ -45,17 +45,17 @@ namespace _00_Scripts.Runtime.Turrets
             ResetShoot();
         }
 
-        CustomCharacterController IDetector.TryGetNearestEnemyInRange()
+        GameObject IDetector.TryGetNearestEnemyInRange()
         {
             return TryGetNearestEnemyInRange();
         }
 
-        void IShooter.Shoot(CustomCharacterController enemy)
+        void IShooter.Shoot(GameObject enemy)
         {
             Shoot(enemy);
         }
 
-        void IShooter.Aim(CustomCharacterController target)
+        void IShooter.Aim(GameObject target)
         {
             Aim(target);
         }
@@ -65,7 +65,7 @@ namespace _00_Scripts.Runtime.Turrets
             TryAim();
         }
 
-        void IShooter.TryShoot(CustomCharacterController enemy)
+        void IShooter.TryShoot(GameObject enemy)
         {
             TryShoot(enemy);
         }
@@ -81,7 +81,7 @@ namespace _00_Scripts.Runtime.Turrets
             Enabled = !Enabled;
         }
 
-        protected virtual void Shoot(CustomCharacterController enemy)
+        protected virtual void Shoot(GameObject enemy)
         {
             LifeManager enemyLife = enemy.GetComponentInChildren<LifeManager>();
             if (enemyLife == null || !Enabled)
@@ -96,7 +96,7 @@ namespace _00_Scripts.Runtime.Turrets
 
         protected abstract void TryAim();
 
-        protected abstract void Aim(CustomCharacterController target);
+        protected abstract void Aim(GameObject target);
 
         protected virtual void ResetShoot()
         {
@@ -108,7 +108,7 @@ namespace _00_Scripts.Runtime.Turrets
             CanShoot = true;
         }
 
-        protected virtual void TryShoot(CustomCharacterController enemy)
+        protected virtual void TryShoot(GameObject enemy)
         {
             if (CanShoot)
             {
@@ -116,6 +116,6 @@ namespace _00_Scripts.Runtime.Turrets
             }
         }
 
-        protected abstract CustomCharacterController TryGetNearestEnemyInRange();
+        protected abstract GameObject TryGetNearestEnemyInRange();
     }
 }

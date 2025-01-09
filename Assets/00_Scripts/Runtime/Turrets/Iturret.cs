@@ -1,20 +1,20 @@
 #region
 
-using _Scripts.Runtime.CharacterController;
+using UnityEngine;
 
 #endregion
 
-namespace Runtime.Turrets
+namespace _00_Scripts.Runtime.Turrets
 {
     public interface IShooter
     {
-        protected void Shoot(CustomCharacterController enemy);
+        protected void Shoot(GameObject enemy);
 
-        protected void Aim(CustomCharacterController target);
+        protected void Aim(GameObject target);
 
         protected void TryAim();
 
-        protected void TryShoot(CustomCharacterController enemy);
+        protected void TryShoot(GameObject enemy);
 
         protected void ResetShoot();
     }
