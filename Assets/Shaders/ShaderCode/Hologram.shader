@@ -20,6 +20,7 @@ Shader "Unlit/Hologram"
         LOD 100
 
         ZWrite Off
+        ZTest Always
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
